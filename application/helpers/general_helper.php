@@ -257,7 +257,7 @@
 
 
 	if(!function_exists("sendmail")) {
-		function sendmail($subject = null, $body = null, $to = null, $cc = array())
+		function sendmail($subject = null, $body = null, $to = null, $cc = array(), $images = array())
 		{
 			$CI =& get_instance();
 			$CI->load->library('phpmailer_lib');
@@ -271,10 +271,21 @@
 			$mail->SMTPSecure = ADMIN_EMAIL_SMTP_SECURE;                 // sets the prefix to the server
 			$mail->Host       = ADMIN_EMAIL_HOST;      // sets GMAIL as the SMTP server
 			$mail->Port       = ADMIN_EMAIL_PORT;                   // set the SMTP port for the GMAIL server
-			$mail->SMTPDebug  = 1;                   // set the SMTP port for the GMAIL server
-
+			$mail->SMTPDebug  = 0;                   // set the SMTP port for the GMAIL server
+            $mail->IsHTML(true); // send as HTML
 			// $mail->AddEmbeddedImage('template/images/custom_image.png', 'logo');
 			// $mail->AddEmbeddedImage('template/metronic/dist/assets/media/bg/bg-4g.jpg', 'bg');
+			// $mail->msgHTML(file_get_contents('contents.html'), __DIR__);
+			
+			
+		    if(count($images) > 0){
+				foreach($images as $image => $image_array){
+					if($image_array['type'] != 'svg')
+				        $mail->AddEmbeddedImage($image_array['path'],$image_array['cid'],$image);
+					else
+					    $mail->AddEmbeddedImage($image_array['path'], $image_array['cid'],$image, 'base64', 'image/svg+xml');
+				}
+			}
 
 			$mail->SMTPOptions = array(
 					'ssl' => array(
@@ -292,11 +303,12 @@
 			
 			$mail->Subject    = $subject;
 			
-			$mail->Body       = "" . $body; //HTML Body
+			$mail->Body       = $body; //HTML Body
 			$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
 			$mail->WordWrap   = 50; // set word wrap
 			
 			$mail->MsgHTML($mail->Body);
+			
 			
 			$mail->AddAddress($to);
 			
@@ -316,9 +328,6 @@
 				}
 			}
 			// $mail->AddAttachment("images/phpmailer.gif");             // attachment
-			
-			$mail->IsHTML(true); // send as HTML
-			
 			if(!$mail->Send())
 				return $mail->ErrorInfo;
 			else 

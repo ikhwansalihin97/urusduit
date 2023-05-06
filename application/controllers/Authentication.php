@@ -83,9 +83,13 @@ class Authentication extends CI_Controller {
 		$data['validate'] = base_url() . 'authentication/validate/' . $token;
 		$body = $this->load->view('email/welcome_t', $data, true);
 		
-		$subject = 'Testing from local';
+		$subject = '3 Testing from local';
 		$to = 'ezzahmawadah97@gmail.com';
-		$rs = sendmail($subject,$body,$to);
+		$image = array(
+		'logo-1.png'=> array('path'=>'metronic/dist/assets/media/email/logo-1.png','cid'=>'logo','type'=>'png'),
+		'icon-positive-vote-1.png'=> array('path'=>'metronic/dist/assets/media/email/icon-positive-vote-1.png','cid'=>'positive-icon','type'=>'png')
+	    );
+		$rs = sendmail($subject,$body,$to,array(),$image);
 		ad($rs);
 		// $this->load->view('email/welcome_t', $data);
 	}

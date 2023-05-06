@@ -87,6 +87,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 defined('ADMIN_EMAIL_HOST')      OR define('ADMIN_EMAIL_HOST', 'smtp.hostinger.com'); // highest automatically-assigned error code
 defined('ADMIN_EMAIL_PORT')      OR define('ADMIN_EMAIL_PORT', 587); // highest automatically-assigned error code
-defined('ADMIN_EMAIL_SMTP_SECURE')      OR define('ADMIN_EMAIL_SMTP_SECURE', 'TLS'); // highest automatically-assigned error code
+defined('ADMIN_EMAIL_SMTP_SECURE')      OR define('ADMIN_EMAIL_SMTP_SECURE', 'SSL'); // highest automatically-assigned error code
 defined('ADMIN_EMAIL_PASS')      OR define('ADMIN_EMAIL_PASS', 'ikhwan971109'); // highest automatically-assigned error code
 defined('ADMIN_SMTP_EMAIL')      OR define('ADMIN_SMTP_EMAIL', 'administrator@ikhwansalihin.com'); // highest automatically-assigned error code
+
