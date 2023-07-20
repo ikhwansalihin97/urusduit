@@ -17,7 +17,7 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 				<!--begin::Page title-->
 				<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
 					<!--begin::Title-->
-					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">My Balance: 37,045$</h1>
+					<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">My Balance: RM <?php echo isset($account['balance']) && $account['balance'] != '' ? number_format($account['balance'],2) :'';?></h1>
 					<!--end::Title-->
 					<!--begin::Breadcrumb-->
 					<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -101,94 +101,443 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 								<div class="tab-content">
 									<!--begin::Tap pane-->
 									<div class="tab-pane fade active show" id="kt_forms_widget_1_tab_content_1">
-										<!--begin::Input group-->
-										<div class="form-floating border border-gray-300 rounded mb-7">
-											<select class="form-select form-select-transparent" id="kt_forms_widget_1_select_1">
-												<option></option>
-												<option value="0" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/bitcoin.svg" selected="selected">Bitcoin/BTC</option>
-												<option value="1" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/ethereum.svg">Ethereum/ETH</option>
-												<option value="2" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/filecoin.svg">Filecoin/FLE</option>
-												<option value="3" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/chainlink.svg">Chainlink/CIN</option>
-												<option value="4" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/binance.svg">Binance/BCN</option>
-											</select>
-											<label for="floatingInputValue">Coin Name</label>
-										</div>
-										<!--end::Input group-->
-										<!--begin::Row-->
-										<div class="row mb-7">
-											<!--begin::Col-->
-											<div class="col-6">
-												<!--begin::Input group-->
-												<div class="form-floating">
-													<input type="email" class="form-control text-gray-800 fw-bold" placeholder="00.0" id="floatingInputValue" value="$230.00" />
-													<label for="floatingInputValue">Amount(USD)</label>
-												</div>
-												<!--end::Input group-->
+										<!--begin::Form-->
+										<form class="form" method="POST" action="<?php echo base_url() .'account/in_records';?>" id="js_record_in">
+											<!--begin::Input group-->
+											<div class="form-floating border border-gray-300 rounded mb-7">
+												<select class="form-select form-select-transparent" name="account_token" id="kt_forms_widget_1_select_1">
+													<option></option>
+													<?php
+													if(isset($account['user_account']) && sizeof($account['user_account']) > 0 )
+													{
+														foreach($account['user_account'] as $row_account)
+														{
+															echo '<option selected="selected" value="' . $row_account['account_token'] . '" data-kt-select2-icon="' .  base_url() . 'metronic/dist/assets/media/icons/duotune/finance/fin008.svg">' . $row_account['account_name'] . '</option>';
+														}
+														
+													}
+													?>
+													<?php
+													/* 
+													<option value="0" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/bitcoin.svg">Bitcoin/BTC</option>
+													<option value="1" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/ethereum.svg">Ethereum/ETH</option>
+													<option value="2" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/filecoin.svg">Filecoin/FLE</option>
+													<option value="3" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/chainlink.svg">Chainlink/CIN</option>
+													<option value="4" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/binance.svg">Binance/BCN</option>
+													 */
+													?>
+												</select>
+												<label for="floatingInputValue">Account</label>
 											</div>
-											<!--end::Col-->
-											<!--begin::Col-->
-											<div class="col-6">
-												<!--begin::Input group-->
-												<div class="form-floating">
-													<input type="email" class="form-control text-gray-800 fw-bold" placeholder="00.0" id="floatingInputValue" value="$0,00000032" />
-													<label for="floatingInputValue">Amount(BTC)</label>
-												</div>
-												<!--end::Input group-->
+											<!--end::Input group-->
+											<!--begin::Row-->
+											<!--begin::Input group-->
+											<div class="form-floating rounded mb-7">
+												<select class="form-select form-control" name="category" data-control="select2" data-placeholder="Select an option">
+													<option></option>
+													<option value="Salary">Salary</option>
+													<option value="Commission">Commission</option>
+													<option value="Hourly wage">Hourly wage</option>
+													<option value="Bonus">Bonus</option>
+													<option value="Dividends">Dividends</option>
+													<option value="Tips">Tips</option>
+													<option value="Inheritance">Inheritance</option>
+													<option value="Royalties">Royalties</option>
+													<option value="Gifts">Gifts</option>
+												</select>
+												<label for="floatingInputValue">Category</label>
 											</div>
-											<!--end::Col-->
-										</div>
-										<!--end::Row-->
-										<!--begin::Action-->
-										<div class="d-flex align-items-end">
-											<a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_top_up_wallet" class="btn btn-primary fs-3 w-100">Make Payment</a>
-										</div>
-										<!--end::Action-->
+											<!--end::Input group-->
+											<!--end::Row-->
+											<!--begin::Row-->
+											<!--begin::Input group-->
+											<div class="form-floating rounded mb-7">
+												<select class="form-select form-control type-select" name="type" data-control="select2" data-placeholder="Select an option">
+													<option></option>
+													<option value="Recurring Weekly">Recurring (Weekly)</option>
+													<option value="Recurring Monthly">Recurring (Monthly)</option>
+													<option value="Recurring Anually">Recurring (Anually)</option>
+													<option value="One Time">One Time</option>
+												</select>
+												<label for="floatingInputValue">Type</label>
+											</div>
+											<!--end::Input group-->
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7 d-none recurring-monthly-type">
+												<div class="form-floating input-group" name="monthly_recurring_date" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
+													<select class="form-select form-control type-select" name="recurring_date_monthly" data-control="select2" data-placeholder="Select an option">
+														<option></option>
+														<?php
+														for($x = 1; $x <=31; $x++)
+														{
+															echo '<option value="'.$x.'">'.$x.'</option>';
+														}
+														?>
+													</select>
+													<label for="floatingInputValue">Recurring Dates</label>
+												</div>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7 d-none recurring-anually-type">
+												<div class="form-floating input-group" name="anually_recurring_date" id="kt_td_picker_date_only_anual" data-td-target-input="nearest" data-td-target-toggle="nearest">
+													<input name="recurring_date_anually" id="kt_td_picker_date_only_input" type="text" class="form-control text-gray-800 fw-bold" data-td-target="#kt_td_picker_date_only_anual"/>
+													<span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
+														<i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+													</span>
+													<label for="floatingInputValue">Recurring Dates</label>
+												</div>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7 d-none normal-type">
+												<div class="form-floating input-group" name="date" id="kt_td_picker_date_only_normal" data-td-target-input="nearest" data-td-target-toggle="nearest">
+													<input name="date" id="kt_td_picker_date_only_input" type="text" class="form-control text-gray-800 fw-bold" data-td-target="#kt_td_picker_date_only_normal"/>
+													<span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
+														<i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+													</span>
+													<label for="floatingInputValue">Date</label>
+												</div>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7 d-none recurring-weekly-type">
+												<!--begin::Default example-->
+												<select class="form-select form-control" name="weekly_recurring_date" data-control="select2" data-placeholder="Select an option">
+													<option></option>
+													<option value="Monday">Monday</option>
+													<option value="Tuesday">Tuesday</option>
+													<option value="Wednesday">Wednesday</option>
+													<option value="Thursday">Thursday</option>
+													<option value="Friday">Friday</option>
+													<option value="Saturday ">Saturday </option>
+													<option value="Sunday">Sunday</option>
+												</select>
+												<label for="floatingInputValue">Frequency Date</label>
+												<!--end::Default example-->
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7">
+												<input type="number" class="form-control " name="amount" placeholder="0" id="floatingInputValue" value="0.00" step="any" />
+												<label for="floatingInputValue">Amount</label>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7">
+												<input type="file" name="file" class="form-control" />
+												<label for="floatingInputValue">File</label>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7">
+												<input type="text" name="remarks" class="form-control " placeholder="Any Remarks " id="remarksInput" />
+												<label for="remarksInput">Comments</label>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="d-flex align-items-end">
+												<input type="submit" class="btn btn-primary fs-3 w-100" value="Record">
+											</div>
+											<!--end::Row-->
+										</form>
+										<!--end::Form-->
 									</div>
 									<!--end::Tap pane-->
 									<!--begin::Tap pane-->
 									<div class="tab-pane fade" id="kt_forms_widget_1_tab_content_2">
-										<!--begin::Input group-->
-										<div class="form-floating border rounded mb-7">
-											<select class="form-select form-select-transparent" id="kt_forms_widget_1_select_2">
-												<option></option>
-												<option value="0" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/bitcoin.svg" selected="selected">Bitcoin/BTC</option>
-												<option value="1" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/ethereum.svg">Ethereum/ETH</option>
-												<option value="2" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/filecoin.svg">Filecoin/FLE</option>
-												<option value="3" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/chainlink.svg">Chainlink/CIN</option>
-												<option value="4" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/binance.svg">Binance/BCN</option>
-											</select>
-											<label for="floatingInputValue">Coin Name</label>
-										</div>
-										<!--end::Input group-->
-										<!--begin::Row-->
-										<div class="row mb-7">
-											<!--begin::Col-->
-											<div class="col-6">
-												<!--begin::Input group-->
-												<div class="form-floating">
-													<input type="email" class="form-control text-gray-800 fw-bold" placeholder="00.0" id="floatingInputValue" value="$0,0000005" />
-													<label for="floatingInputValue">Amount(BTC)</label>
-												</div>
-												<!--end::Input group-->
+										<!--begin::Form-->
+										<form class="form" method="POST" action="<?php echo base_url() .'account/out_records';?>" id="js_record_out">
+											<!--begin::Input group-->
+											<div class="form-floating border border-gray-300 rounded mb-7">
+												<select class="form-select form-select-transparent" name="account_token" id="kt_forms_widget_1_select_2">
+													<option></option>
+													<?php
+													if(isset($account['user_account']) && sizeof($account['user_account']) > 0 )
+													{
+														foreach($account['user_account'] as $row_account)
+														{
+															echo '<option selected="selected" value="' . $row_account['account_token'] . '" data-kt-select2-icon="' .  base_url() . 'metronic/dist/assets/media/icons/duotune/finance/fin008.svg">' . $row_account['account_name'] . '</option>';
+														}
+														
+													}
+													?>
+													<?php
+													/* 
+													<option value="0" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/bitcoin.svg">Bitcoin/BTC</option>
+													<option value="1" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/ethereum.svg">Ethereum/ETH</option>
+													<option value="2" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/filecoin.svg">Filecoin/FLE</option>
+													<option value="3" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/chainlink.svg">Chainlink/CIN</option>
+													<option value="4" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/binance.svg">Binance/BCN</option>
+													 */
+													?>
+												</select>
+												<label for="floatingInputValue">Account</label>
 											</div>
-											<!--end::Col-->
-											<!--begin::Col-->
-											<div class="col-6">
-												<!--begin::Input group-->
-												<div class="form-floating">
-													<input type="email" class="form-control text-gray-800 fw-bold" placeholder="00.0" id="floatingInputValue" value="$1230.00" />
-													<label for="floatingInputValue">Amount(USD)</label>
-												</div>
-												<!--end::Input group-->
+											<!--end::Input group-->
+											<!--begin::Row-->
+											<!--begin::Input group-->
+											<div class="form-floating rounded mb-7">
+												<select class="form-select form-control" name="category" data-control="select2" data-placeholder="Select an option">
+													<optgroup label="Food">
+														<option value="Groceries">Groceries</option>
+														<option value="Dine">Dine</option>
+														<option value="Bakery">Bakery</option>
+														<option value="Fast Food">Fast Food</option>
+														<option value="Other F&B Expenses">Other F&amp;B Expenses</option>
+													</optgroup>
+													<optgroup label="Personal Care">
+														<option value="Toiletries">Toiletries</option>
+														<option value="Beauty Products">Beauty Products</option>
+														<option value="Cosmetics">Cosmetics</option>
+														<option value="Haircuts">Haircuts</option>
+														<option value="Salon">Salon</option>
+														<option value="Spa">Spa</option>
+														<option value="Massage">Massage</option>
+														<option value="Gym">Gym</option>
+														<option value="Other Personal Care Expenses">Other Personal Care Expenses</option>
+													</optgroup>
+													<optgroup label="Clothing and Accessories">
+														<option value="Clothing">Clothing</option>
+														<option value="Undergarments">Undergarments</option>
+														<option value="Shoes">Shoes</option>
+														<option value="Accessories">Accessories</option>
+														<option value="Jewellery">Jewellery</option>
+														<option value="Watches">Watches</option>
+														<option value="Alterations">Alterations</option>
+														<option value="Other Clothing Expenses">Other Clothing Expenses</option>
+													</optgroup>
+													<optgroup label="Housing">
+														<option value="Rent">Rent</option>
+														<option value="Mortgage">Mortgage</option>
+														<option value="Furniture">Furniture</option>
+														<option value="Decorations">Decorations</option>
+														<option value="Housing Maintenance">Housing Maintenance</option>
+														<option value="Housing Repairs">Housing Repairs</option>
+														<option value="Other Housing Expenses">Other Housing Expenses</option>
+													</optgroup>
+													<optgroup label="Transportation">
+														<option value="Fuel">Fuel</option>
+														<option value="Public Transport">Public Transport</option>
+														<option value="Vehicle Maintenance">Vehicle Maintenance</option>
+														<option value="Vehile Repairs">Vehile Repairs</option>
+														<option value="Parking">Parking</option>
+														<option value="Tolls">Tolls</option>
+														<option value="Airlines">Airlines</option>
+														<option value="Carwash">Carwash</option>
+														<option value="Other Transportation Expenses">Other Transportation Expenses</option>
+													</optgroup>
+													<optgroup label="Healthcare">
+														<option value="Health Insurance">Health Insurance</option>
+														<option value="Pharmacy">Pharmacy</option>
+														<option value="Doctor Visits">Doctor Visits</option>
+														<option value="Prescription Medications">Prescription Medications</option>
+														<option value="Over-The-Counter Drugs">Over-The-Counter Drugs</option>
+														<option value="Medical Treatments">Medical Treatments</option>
+														<option value="Dental Care">Dental Care</option>
+														<option value="Vision Care">Vision Care</option>
+														<option value="Other Healthcare Expenses">Other Healthcare Expenses</option>
+													</optgroup>
+													<optgroup label="Debt Payments">
+														<option value="Credit Card">Credit Card</option>
+														<option value="Student Loans">Student Loans</option>
+														<option value="Electronic Loans">Electronic Loans</option>
+														<option value="Furniture Loans">Furniture Loans</option>
+														<option value="Mobile Loans">Mobile Loans</option>
+														<option value="Personal Loans">Personal Loans</option>
+														<option value="Vehicle Loans">Vehicle Loans</option>
+														<option value="Other Debts">Other Debts</option>
+													</optgroup>
+													<optgroup label="Insurance">
+														<option value="Life Insurance">Life Insurance</option>
+														<option value="Medical Insurance">Medical Insurance</option>
+														<option value="Car Insurance">Car Insurance</option>
+														<option value="Home Insurance">Home Insurance</option>
+														<option value="Takaful">Takaful</option>
+														<option value="Hibah">Hibah</option>
+														<option value="Other Insurance">Other Insurance</option>
+													</optgroup>
+													<optgroup label="Education">
+														<option value="School Fees">School Fees</option>
+														<option value="Tuition Fees">Tuition Fees</option>
+														<option value="College Fees">Tuition Fees</option>
+														<option value="University Fees">Tuition Fees</option>
+														<option value="Textbooks">Textbooks</option>
+														<option value="Stationery">Stationery</option>
+														<option value="Educational Supplies">Educational Supplies</option>
+														<option value="Educational Materials">Educational Materials</option>
+														<option value="Extracuricullar Activities">Extracuricullar Activities</option>
+														<option value="Other Education Expenses">Other Education Expenses</option>
+													</optgroup>
+													<optgroup label="Entertainment">
+														<option value="Movies">Movies</option>
+														<option value="Magazines">Magazines</option>
+														<option value="Music">Music</option>
+														<option value="Gaming">Gaming</option>
+														<option value="Amusement Parks">Amusement Parks</option>
+														<option value="Concerts">Concerts</option>
+														<option value="Sports">Sports</option>
+														<option value="Vacations">Vacations</option>
+														<option value="Hobbies">Hobbies</option>
+														<option value="Streaming Services">Streaming Services</option>
+														<option value="Recreational Services">Recreational Services</option>
+														<option value="Accommodation">Accommodation</option>
+														<option value="Other Entertainment Expenses">Other Entertainment Expenses</option>
+													</optgroup>
+													<optgroup label="Childcare">
+														<option value="Daycare">Daycare</option>
+														<option value="Nursery">Nursery</option>
+														<option value="Diapers">Diapers</option>
+														<option value="Formula">Formula</option>
+														<option value="Baby Clothing">Baby Clothing</option>
+														<option value="Baby Supplies">Baby Supplies</option>
+														<option value="Other Childcare Expenses">Other Childcare Expenses</option>
+													</optgroup>
+													<optgroup label="Savings and Investments">
+														<option value="Savings Contribution">Savings Contribution</option>
+														<option value="ASNB">ASNB</option>
+														<option value="Unit Trust">Unit Trust</option>
+														<option value="Investment">Investment</option>
+														<option value="Crypto">Crypto</option>
+														<option value="Stocks">Stocks</option>
+														<option value="REITs">REITs</option>
+														<option value="ETFs">ETFs</option>
+														<option value="Sukuk">Sukuk</option>
+														<option value="Gold">Gold</option>
+														<option value="Comodities">Comodities</option>
+														<option value="Other Savings Expenses">Other Savings Expenses</option>
+														<option value="Other Investment Expenses">Other Investment Expenses</option>
+													</optgroup>
+													<optgroup label="Electronics">
+														<option value="Household Appliances">Household Appliances</option>
+														<option value="Computer">Computer</option>
+														<option value="Digital Appliances">Digital Appliances</option>
+														<option value="Electronics">Electronics</option>
+														<option value="Other Electronics Expenses">Other Electronics Expenses</option>
+													</optgroup>
+													<optgroup label="Bills & Utilities">
+														<option value="Electric">Electric</option>
+														<option value="Water">Water</option>
+														<option value="Gas">Gas</option>
+														<option value="Mobile">Mobile</option>
+														<option value="Internet">Internet</option>
+														<option value="Other Utilities">Other Utilities</option>
+													</optgroup>
+													<optgroup label="Others">
+														<option value="Fines">Fines</option>
+														<option value="Donations">Donations</option>
+														<option value="Food Delivery">Food Delivery</option>
+														<option value="Associations">Associations</option>
+														<option value="Charity">Charity</option>
+														<option value="Laundry">Laundry</option>
+														<option value="Postage Fee">Postage Fee</option>
+														<option value="Gifts">Gifts</option>
+														<option value="Tobacco">Tobacco</option>
+														<option value="Taxes">Taxes</option>
+														<option value="Money Transfers">Money Transfers</option>
+														<option value="ATM Withdrawals">ATM Withdrawals</option>
+														<option value="Other Expenses">Other Expenses</option>
+													</optgroup>
+												</select>
+												<label for="floatingInputValue">Category</label>
 											</div>
-											<!--end::Col-->
-										</div>
-										<!--end::Row-->
-										<!--begin::Action-->
-										<div class="d-flex align-items-end">
-											<a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_top_up_wallet" class="btn btn-primary fs-3 w-100">Place Offer</a>
-										</div>
-										<!--end::Action-->
+											<!--end::Input group-->
+											<!--end::Row-->
+											<!--begin::Row-->
+											<!--begin::Input group-->
+											<div class="form-floating rounded mb-7">
+												<select class="form-select form-control out-type-select" name="type" data-control="select2" data-placeholder="Select an option">
+													<option></option>
+													<option value="Recurring Weekly">Recurring (Weekly)</option>
+													<option value="Recurring Monthly">Recurring (Monthly)</option>
+													<option value="Recurring Anually">Recurring (Anually)</option>
+													<option value="One Time">One Time</option>
+												</select>
+												<label for="floatingInputValue">Type</label>
+											</div>
+											<!--end::Input group-->
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7 d-none out-recurring-monthly-type">
+												<div class="form-floating input-group" name="monthly_recurring_date" id="kt_td_picker_date_only_out" data-td-target-input="nearest" data-td-target-toggle="nearest">
+													<select class="form-select form-control type-select" name="recurring_date_monthly" data-control="select2" data-placeholder="Select an option">
+														<option></option>
+														<?php
+														for($x = 1; $x <=31; $x++)
+														{
+															echo '<option value="'.$x.'">'.$x.'</option>';
+														}
+														?>
+													</select>
+													<label for="floatingInputValue">Recurring Dates</label>
+												</div>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7 d-none out-recurring-anually-type">
+												<div class="form-floating input-group" name="anually_recurring_date" id="kt_td_picker_date_only_anual_out" data-td-target-input="nearest" data-td-target-toggle="nearest">
+													<input name="recurring_date_anually" id="kt_td_picker_date_only_input" type="text" class="form-control text-gray-800 fw-bold" data-td-target="#kt_td_picker_date_only_anual_out"/>
+													<span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
+														<i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+													</span>
+													<label for="floatingInputValue">Recurring Dates</label>
+												</div>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7 d-none out-normal-type">
+												<div class="form-floating input-group" name="date" id="kt_td_picker_date_only_normal_out" data-td-target-input="nearest" data-td-target-toggle="nearest">
+													<input name="date" id="kt_td_picker_date_only_input" type="text" class="form-control text-gray-800 fw-bold" data-td-target="#kt_td_picker_date_only_normal_out"/>
+													<span class="input-group-text" data-td-target="#kt_td_picker_date_only_out" data-td-toggle="datetimepicker">
+														<i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+													</span>
+													<label for="floatingInputValue">Date</label>
+												</div>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7 d-none out-recurring-weekly-type">
+												<!--begin::Default example-->
+												<select class="form-select form-control" name="weekly_recurring_date" data-control="select2" data-placeholder="Select an option">
+													<option></option>
+													<option value="Monday">Monday</option>
+													<option value="Tuesday">Tuesday</option>
+													<option value="Wednesday">Wednesday</option>
+													<option value="Thursday">Thursday</option>
+													<option value="Friday">Friday</option>
+													<option value="Saturday ">Saturday </option>
+													<option value="Sunday">Sunday</option>
+												</select>
+												<label for="floatingInputValue">Frequency Date</label>
+												<!--end::Default example-->
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7">
+												<input type="number" class="form-control " name="amount" placeholder="0" id="floatingInputValue" value="0.00" step="any" />
+												<label for="floatingInputValue">Amount</label>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7">
+												<input type="file" name="file" class="form-control" />
+												<label for="floatingInputValue">File</label>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="form-floating rounded mb-7">
+												<input type="text" name="remarks" class="form-control " placeholder="Any Remarks " id="remarksInput" />
+												<label for="remarksInput">Comments</label>
+											</div>
+											<!--end::Row-->
+											<!--begin::Row-->
+											<div class="d-flex align-items-end">
+												<input type="submit" class="btn btn-primary fs-3 w-100" value="Record">
+											</div>
+											<!--end::Row-->
+										</form>
+										<!--end::Form-->
 									</div>
 									<!--end::Tap pane-->
 								</div>
@@ -202,338 +551,282 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 					<!--begin::Col-->
 					<div class="col-xxl-8">
 						<!--begin::Row-->
-						<div class="row g-5 g-xl-10">
-							<!--begin::Col-->
-							<div class="col-md-4">
-								<!--begin::Card widget 11-->
-								<div class="card card-flush h-xl-100" style="background-color: #F6E5CA">
-									<!--begin::Header-->
-									<div class="card-header flex-nowrap pt-5">
-										<!--begin::Title-->
-										<h3 class="card-title align-items-start flex-column">
-											<span class="card-label fw-bold fs-4 text-gray-800">Bitcoin</span>
-											<span class="mt-1 fw-semibold fs-7" style="color:">36,668 USD for 1 BTC</span>
-										</h3>
-										<!--end::Title-->
-										<!--begin::Toolbar-->
-										<div class="card-toolbar">
-											<!--begin::Menu-->
-											<button class="btn btn-icon justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true" style="color:">
-												<i class="ki-duotone ki-dots-square fs-1">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-												</i>
-											</button>
-											<!--begin::Menu 2-->
-											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mb-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Ticket</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Customer</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+						<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+							<?php
+							if(isset($account['user_account']) && sizeof($account['user_account']) > 0 )
+							{
+								if(sizeof($account['user_account']) == 1)
+								{
+									$col_size = '12';
+								}
+								else if(sizeof($account['user_account']) == 2)
+								{
+									$col_size = '6';
+								}
+								else if(sizeof($account['user_account']) == 3)
+								{
+									$col_size = '4';
+								}
+								
+								foreach($account['user_account'] as $row_account)
+								{
+							?>
+								<!--begin::Col-->
+								<div class="col-md-<?php echo isset($col_size) && $col_size != '' ? $col_size :'12';?>">
+									<!--begin::Card widget 11-->
+									<div class="card card-flush h-xl-100" style="background-color: #F6E5CA">
+										<!--begin::Header-->
+										<div class="card-header flex-nowrap pt-5">
+											<!--begin::Title-->
+											<h3 class="card-title align-items-start flex-column">
+												<span class="card-label fw-bold fs-4 text-gray-800"><?php echo isset($row_account['account_name']) && $row_account['account_name'] != '' ? $row_account['account_name'] : 'Account Name Missing';?></span>
+												<span class="mt-1 fw-semibold fs-7" style="color:">Since : <?php echo isset($row_account['create_date']) && $row_account['create_date'] != '' ? date("d F Y", $row_account['create_date']) : 'Created Date Missing';?></span>
+											</h3>
+											<!--end::Title-->
+											<!--begin::Toolbar-->
+											<div class="card-toolbar">
+												<!--begin::Menu-->
+												<button class="btn btn-icon justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true" style="color:">
+													<i class="ki-duotone ki-dots-square fs-1">
+														<span class="path1"></span>
+														<span class="path2"></span>
+														<span class="path3"></span>
+														<span class="path4"></span>
+													</i>
+												</button>
+												<!--begin::Menu 2-->
+												<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
 													<!--begin::Menu item-->
-													<a href="#" class="menu-link px-3">
-														<span class="menu-title">New Group</span>
-														<span class="menu-arrow"></span>
-													</a>
+													<div class="menu-item px-3">
+														<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
+													</div>
 													<!--end::Menu item-->
-													<!--begin::Menu sub-->
-													<div class="menu-sub menu-sub-dropdown w-175px py-4">
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Admin Group</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Staff Group</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Member Group</a>
-														</div>
-														<!--end::Menu item-->
-													</div>
-													<!--end::Menu sub-->
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Contact</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mt-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content px-3 py-3">
-														<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
-													</div>
-												</div>
-												<!--end::Menu item-->
-											</div>
-											<!--end::Menu 2-->
-											<!--end::Menu-->
-										</div>
-										<!--end::Toolbar-->
-									</div>
-									<!--end::Header-->
-									<!--begin::Body-->
-									<div class="card-body text-center pt-5">
-										<!--begin::Image-->
-										<img src="<?php echo base_url();?>metronic/dist/assets/media/svg/shapes/bitcoin.svg" class="h-125px mb-5" alt="" />
-										<!--end::Image-->
-										<!--begin::Section-->
-										<div class="text-start">
-											<span class="d-block fw-bold fs-1 text-gray-800">0.44554576 BTC</span>
-											<span class="mt-1 fw-semibold fs-3" style="color:">19,335,45 USD</span>
-										</div>
-										<!--end::Section-->
-									</div>
-									<!--end::Body-->
-								</div>
-								<!--end::Card widget 11-->
-							</div>
-							<!--end::Col-->
-							<!--begin::Col-->
-							<div class="col-md-4">
-								<!--begin::Card widget 11-->
-								<div class="card card-flush h-xl-100" style="background-color: #F3D6EF">
-									<!--begin::Header-->
-									<div class="card-header flex-nowrap pt-5">
-										<!--begin::Title-->
-										<h3 class="card-title align-items-start flex-column">
-											<span class="card-label fw-bold fs-4 text-gray-800">Etherium</span>
-											<span class="mt-1 fw-semibold fs-7" style="color:">325,035 USD for 1 ETH</span>
-										</h3>
-										<!--end::Title-->
-										<!--begin::Toolbar-->
-										<div class="card-toolbar">
-											<!--begin::Menu-->
-											<button class="btn btn-icon justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true" style="color:">
-												<i class="ki-duotone ki-dots-square fs-1">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-												</i>
-											</button>
-											<!--begin::Menu 2-->
-											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mb-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Ticket</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Customer</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+													<!--begin::Menu separator-->
+													<div class="separator mb-3 opacity-75"></div>
+													<!--end::Menu separator-->
 													<!--begin::Menu item-->
-													<a href="#" class="menu-link px-3">
-														<span class="menu-title">New Group</span>
-														<span class="menu-arrow"></span>
-													</a>
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">New Ticket</a>
+													</div>
 													<!--end::Menu item-->
-													<!--begin::Menu sub-->
-													<div class="menu-sub menu-sub-dropdown w-175px py-4">
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Admin Group</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Staff Group</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Member Group</a>
-														</div>
-														<!--end::Menu item-->
-													</div>
-													<!--end::Menu sub-->
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Contact</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mt-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content px-3 py-3">
-														<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
-													</div>
-												</div>
-												<!--end::Menu item-->
-											</div>
-											<!--end::Menu 2-->
-											<!--end::Menu-->
-										</div>
-										<!--end::Toolbar-->
-									</div>
-									<!--end::Header-->
-									<!--begin::Body-->
-									<div class="card-body text-center pt-5">
-										<!--begin::Image-->
-										<img src="<?php echo base_url();?>metronic/dist/assets/media/svg/shapes/ethereum.svg" class="h-125px mb-5" alt="" />
-										<!--end::Image-->
-										<!--begin::Section-->
-										<div class="text-start">
-											<span class="d-block fw-bold fs-1 text-gray-800">29.33460000 ETH</span>
-											<span class="mt-1 fw-semibold fs-3" style="color:">7,336,00 USD</span>
-										</div>
-										<!--end::Section-->
-									</div>
-									<!--end::Body-->
-								</div>
-								<!--end::Card widget 11-->
-							</div>
-							<!--end::Col-->
-							<!--begin::Col-->
-							<div class="col-md-4">
-								<!--begin::Card widget 11-->
-								<div class="card card-flush h-xl-100" style="background-color: #BFDDE3">
-									<!--begin::Header-->
-									<div class="card-header flex-nowrap pt-5">
-										<!--begin::Title-->
-										<h3 class="card-title align-items-start flex-column">
-											<span class="card-label fw-bold fs-4 text-gray-800">Dogecoin</span>
-											<span class="mt-1 fw-semibold fs-7" style="color:">0.12,045 USD for 1 DOGE</span>
-										</h3>
-										<!--end::Title-->
-										<!--begin::Toolbar-->
-										<div class="card-toolbar">
-											<!--begin::Menu-->
-											<button class="btn btn-icon justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true" style="color:">
-												<i class="ki-duotone ki-dots-square fs-1">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-												</i>
-											</button>
-											<!--begin::Menu 2-->
-											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mb-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Ticket</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Customer</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
 													<!--begin::Menu item-->
-													<a href="#" class="menu-link px-3">
-														<span class="menu-title">New Group</span>
-														<span class="menu-arrow"></span>
-													</a>
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">New Customer</a>
+													</div>
 													<!--end::Menu item-->
-													<!--begin::Menu sub-->
-													<div class="menu-sub menu-sub-dropdown w-175px py-4">
+													<!--begin::Menu item-->
+													<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
 														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Admin Group</a>
-														</div>
+														<a href="#" class="menu-link px-3">
+															<span class="menu-title">New Group</span>
+															<span class="menu-arrow"></span>
+														</a>
 														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Staff Group</a>
+														<!--begin::Menu sub-->
+														<div class="menu-sub menu-sub-dropdown w-175px py-4">
+															<!--begin::Menu item-->
+															<div class="menu-item px-3">
+																<a href="#" class="menu-link px-3">Admin Group</a>
+															</div>
+															<!--end::Menu item-->
+															<!--begin::Menu item-->
+															<div class="menu-item px-3">
+																<a href="#" class="menu-link px-3">Staff Group</a>
+															</div>
+															<!--end::Menu item-->
+															<!--begin::Menu item-->
+															<div class="menu-item px-3">
+																<a href="#" class="menu-link px-3">Member Group</a>
+															</div>
+															<!--end::Menu item-->
 														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Member Group</a>
-														</div>
-														<!--end::Menu item-->
+														<!--end::Menu sub-->
 													</div>
-													<!--end::Menu sub-->
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Contact</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mt-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content px-3 py-3">
-														<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">New Contact</a>
 													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu separator-->
+													<div class="separator mt-3 opacity-75"></div>
+													<!--end::Menu separator-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<div class="menu-content px-3 py-3">
+															<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
+														</div>
+													</div>
+													<!--end::Menu item-->
 												</div>
-												<!--end::Menu item-->
+												<!--end::Menu 2-->
+												<!--end::Menu-->
 											</div>
-											<!--end::Menu 2-->
-											<!--end::Menu-->
+											<!--end::Toolbar-->
 										</div>
-										<!--end::Toolbar-->
-									</div>
-									<!--end::Header-->
-									<!--begin::Body-->
-									<div class="card-body text-center pt-5">
-										<!--begin::Image-->
-										<img src="<?php echo base_url();?>metronic/dist/assets/media/svg/shapes/dogecoin.svg" class="h-125px mb-5" alt="" />
-										<!--end::Image-->
-										<!--begin::Section-->
-										<div class="text-start">
-											<span class="d-block fw-bold fs-1 text-gray-800">4703.7589 DOGE</span>
-											<span class="mt-1 fw-semibold fs-3" style="color:">503,005,56 USD</span>
+										<!--end::Header-->
+										<!--begin::Body-->
+										<div class="card-body text-center pt-5">
+											<!--begin::Image-->
+											<!--<img src="<?php echo base_url();?>metronic/dist/assets/media/icons/duotune/finance/fin008.svg" class="h-125px mb-5" alt="" style="filter: opacity(0.3);" /> -->
+											<!--end::Image-->
+											<!--begin::Section-->
+											<div class="text-start">
+												<span class="d-block fw-bold fs-1 text-gray-800"><?php echo isset($row_account['amount_total']) && $row_account['amount_total'] != '' ? 'RM ' . number_format($row_account['amount_total'],2) : 'RM 0.00';?></span>
+												<span class="mt-1 fw-semibold fs-3" style="color:">Latest Update : <?php echo isset($row_account['update_date']) && $row_account['update_date'] != '' ? date("d F Y", $row_account['update_date']) : 'Update Date Missing';?></span>
+											</div>
+											<!--end::Section-->
 										</div>
-										<!--end::Section-->
+										<!--end::Body-->
 									</div>
-									<!--end::Body-->
+									<!--end::Card widget 11-->
 								</div>
-								<!--end::Card widget 11-->
+								<!--end::Col-->
+							<?php
+								}
+							}
+							?>
+							
+						</div>
+						<!--end::Row-->
+						<!--begin::Row-->
+						<div class="row ">
+							<!--begin::Col-->
+							<div class="col-xl-12">
+								<!--begin::Table widget 7-->
+									<div class="card card-flush h-xl-100">
+										<!--begin::Header-->
+										<div class="card-header pt-7">
+											<!--begin::Title-->
+											<h4 class="card-title align-items-start flex-column">
+												<span class="card-label fw-bold text-gray-800">Latest Transactions</span>
+												<span class="text-gray-400 mt-1 fw-semibold fs-7">Updated 
+													<?php
+													if(isset($account['update_date']) && $account['update_date'] != '')
+													{
+														echo $account['update_date'];
+													}
+													?> 
+													</span>
+											</h4>
+											<!--end::Title-->
+											<!--begin::Toolbar-->
+											<div class="card-toolbar">
+												<!--begin::Daterangepicker(defined in src/js/layout/app.js)-->
+												<div class="btn btn-sm btn-light d-flex align-items-center px-4">
+													<!--begin::Display range-->
+													<div class="text-gray-600 fw-bold">
+													<?php
+													if(isset($account['last_update_date']) && $account['last_update_date'] != '')
+													{
+														echo $account['last_update_date'];
+													}
+													?>
+													</div>
+													<!--end::Display range-->
+													<i class="ki-duotone ki-calendar-8 fs-1 ms-2 me-0">
+														<span class="path1"></span>
+														<span class="path2"></span>
+														<span class="path3"></span>
+														<span class="path4"></span>
+														<span class="path5"></span>
+														<span class="path6"></span>
+													</i>
+												</div>
+												<!--end::Daterangepicker-->
+											</div>
+											<!--end::Toolbar-->
+										</div>
+										<!--end::Header-->
+										<!--begin::Body-->
+										<div class="card-body py-3">
+											<?php 
+											//ad($account['last_update_date']);
+											//ad($account['transactions']);
+											?>
+											<!--begin::Table container-->
+											<div class="table-responsive">
+												<!--begin::Table-->
+												<table class="table table-row-dashed align-middle gs-0 gy-4 my-0">
+													<!--begin::Table head-->
+													<thead>
+														<tr class="border-bottom-0">
+															<th class="p-0 w-50px"></th>
+															<th class="p-0 min-w-175px"></th>
+															<th class="p-0 min-w-175px"></th>
+															<th class="p-0 min-w-150px"></th>
+															<th class="p-0 min-w-150px"></th>
+															<th class="p-0 min-w-50px"></th>
+														</tr>
+													</thead>
+													<!--end::Table head-->
+													<!--begin::Table body-->
+													<tbody>
+													<?php 
+													foreach($account['transactions'] as $key_transactions=>$row_transactions)
+													{
+														
+														foreach($row_transactions as $row)
+														{
+															if($row['record'] == 'Deposit')
+															{
+																$icon = 'ki-chart-line-up';
+																$text = 'text-success';
+															}
+															else
+															{
+																$icon = 'ki-chart-line-down';
+																$text = 'text-danger';
+															}
+													?>													
+														<tr>
+															<td>
+																<div class="symbol symbol-40px">
+																	<span class="symbol-label bg-light-info">
+																		<i class="ki-duotone <?php echo $icon . ' ' . $text;?> fs-2x">
+																			<span class="path1"></span>
+																			<span class="path2"></span>
+																		</i>
+																	</span>
+																</div>
+															</td>
+															<td class="ps-0">
+																<a href="<?php echo $row['id'];?>" class="text-dark fw-bold text-hover-primary mb-1 fs-6"><?php echo $row['category'];?></a>
+																<span class="text-muted fw-semibold d-block fs-7"><?php echo $row['record'];?></span>
+															</td>
+															<td>
+																<span class="text-dark fw-bold d-block fs-6"><?php echo $row['account_name'] . ' Wallet';?></span>
+																<span class="text-gray-400 fw-semibold d-block fs-7"><?php echo $row['type'];?></span>
+															</td>
+															<td>
+																<span class="text-dark fw-bold d-block fs-6"><?php echo $row['exact_record_date'];?></span>
+															</td>
+															<td>
+																<span class="text-dark fw-bold d-block fs-6"><?php echo 'RM ' . $row['amount'];?></span>
+															</td>
+															<td class="text-end">
+																<a href="<?php echo $row['id'];?>" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
+																	<i class="ki-duotone ki-arrow-right fs-2">
+																		<span class="path1"></span>
+																		<span class="path2"></span>
+																	</i>
+																</a>
+															</td>
+														</tr>
+													<?php
+														}
+													}
+													?>
+													</tbody>
+													<!--end::Table body-->
+												</table>
+												<!--end::Table-->
+											</div>
+											<!--end::Table container-->
+										</div>
+										<!--begin::Body-->
+									</div>
+								<!--end::Table widget 7-->
 							</div>
 							<!--end::Col-->
 						</div>
@@ -652,247 +945,107 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 				<div class="row g-5 g-xl-10">
 					<!--begin::Col-->
 					<div class="col-xxl-8">
-						<!--begin::Table widget 7-->
-						<div class="card card-flush h-xl-100">
-							<!--begin::Header-->
-							<div class="card-header pt-7">
-								<!--begin::Title-->
-								<h4 class="card-title align-items-start flex-column">
-									<span class="card-label fw-bold text-gray-800">Latest Activity</span>
-									<span class="text-gray-400 mt-1 fw-semibold fs-7">Updated 37 minutes ago</span>
-								</h4>
-								<!--end::Title-->
-								<!--begin::Toolbar-->
-								<div class="card-toolbar">
-									<!--begin::Daterangepicker(defined in src/js/layout/app.js)-->
-									<div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" class="btn btn-sm btn-light d-flex align-items-center px-4">
-										<!--begin::Display range-->
-										<div class="text-gray-600 fw-bold">Loading date range...</div>
-										<!--end::Display range-->
-										<i class="ki-duotone ki-calendar-8 fs-1 ms-2 me-0">
-											<span class="path1"></span>
-											<span class="path2"></span>
-											<span class="path3"></span>
-											<span class="path4"></span>
-											<span class="path5"></span>
-											<span class="path6"></span>
-										</i>
+						<!--begin::Chart widget 24-->
+							<div class="card card-flush overflow-hidden h-xl-100">
+								<!--begin::Header-->
+								<div class="card-header py-5">
+									<!--begin::Title-->
+									<h3 class="card-title align-items-start flex-column">
+										<span class="card-label fw-bold text-dark">Human Resources</span>
+										<span class="text-gray-400 mt-1 fw-semibold fs-6">Reports by states and ganders</span>
+									</h3>
+									<!--end::Title-->
+									<!--begin::Toolbar-->
+									<div class="card-toolbar">
+										<!--begin::Menu-->
+										<button class="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true">
+											<i class="ki-duotone ki-dots-square fs-1">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+												<span class="path4"></span>
+											</i>
+										</button>
+										<!--begin::Menu 2-->
+										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu separator-->
+											<div class="separator mb-3 opacity-75"></div>
+											<!--end::Menu separator-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<a href="javascript:void(0)" class="menu-link px-3 downloadsvg">Download SVG</a>
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<a href="#" class="menu-link px-3">New Customer</a>
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+												<!--begin::Menu item-->
+												<a href="#" class="menu-link px-3">
+													<span class="menu-title">New Group</span>
+													<span class="menu-arrow"></span>
+												</a>
+												<!--end::Menu item-->
+												<!--begin::Menu sub-->
+												<div class="menu-sub menu-sub-dropdown w-175px py-4">
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">Admin Group</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">Staff Group</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">Member Group</a>
+													</div>
+													<!--end::Menu item-->
+												</div>
+												<!--end::Menu sub-->
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<a href="#" class="menu-link px-3">New Contact</a>
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu separator-->
+											<div class="separator mt-3 opacity-75"></div>
+											<!--end::Menu separator-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<div class="menu-content px-3 py-3">
+													<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
+												</div>
+											</div>
+											<!--end::Menu item-->
+										</div>
+										<!--end::Menu 2-->
+										<!--end::Menu-->
 									</div>
-									<!--end::Daterangepicker-->
+									<!--end::Toolbar-->
 								</div>
-								<!--end::Toolbar-->
-							</div>
-							<!--end::Header-->
-							<!--begin::Body-->
-							<div class="card-body py-3">
-								<!--begin::Table container-->
-								<div class="table-responsive">
-									<!--begin::Table-->
-									<table class="table table-row-dashed align-middle gs-0 gy-4 my-0">
-										<!--begin::Table head-->
-										<thead>
-											<tr class="border-bottom-0">
-												<th class="p-0 w-50px"></th>
-												<th class="p-0 min-w-175px"></th>
-												<th class="p-0 min-w-175px"></th>
-												<th class="p-0 min-w-150px"></th>
-												<th class="p-0 min-w-150px"></th>
-												<th class="p-0 min-w-50px"></th>
-											</tr>
-										</thead>
-										<!--end::Table head-->
-										<!--begin::Table body-->
-										<tbody>
-											<tr>
-												<td>
-													<div class="symbol symbol-40px">
-														<span class="symbol-label bg-light-info">
-															<i class="ki-duotone ki-abstract-24 fs-2x text-info">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</span>
-													</div>
-												</td>
-												<td class="ps-0">
-													<a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">Insurance</a>
-													<span class="text-muted fw-semibold d-block fs-7">Personal Health</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">BTC Wallet</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Personal Account</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">23 Jan, 22</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Last Payment</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">-0.0024 BTC</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Balance</span>
-												</td>
-												<td class="text-end">
-													<a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-arrow-right fs-2">
-															<span class="path1"></span>
-															<span class="path2"></span>
-														</i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="symbol symbol-40px">
-														<span class="symbol-label bg-light-success">
-															<i class="ki-duotone ki-flask fs-2x text-success">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</span>
-													</div>
-												</td>
-												<td class="ps-0">
-													<a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">Annette Black</a>
-													<span class="text-muted fw-semibold d-block fs-7">Zuid Area</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">ETH Wallet</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Personal Account</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">04 Feb, 22</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Last Payment</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">-0.346 ETH</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Balance</span>
-												</td>
-												<td class="text-end">
-													<a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-arrow-right fs-2">
-															<span class="path1"></span>
-															<span class="path2"></span>
-														</i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="symbol symbol-40px">
-														<span class="symbol-label bg-light-danger">
-															<i class="ki-duotone ki-abstract-33 fs-2x text-danger">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</span>
-													</div>
-												</td>
-												<td class="ps-0">
-													<a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">Esther Howard</a>
-													<span class="text-muted fw-semibold d-block fs-7">Zuid Area</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">BTC Wallet</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Personal Account</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">18 Feb, 22</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Last Payment</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">-0.00081 BTC</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Balance</span>
-												</td>
-												<td class="text-end">
-													<a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-arrow-right fs-2">
-															<span class="path1"></span>
-															<span class="path2"></span>
-														</i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="symbol symbol-40px">
-														<span class="symbol-label bg-light-primary">
-															<i class="ki-duotone ki-abstract-47 fs-2x text-primary">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</span>
-													</div>
-												</td>
-												<td class="ps-0">
-													<a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">Guy Hawkins</a>
-													<span class="text-muted fw-semibold d-block fs-7">Zuid Area</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">DOGE Wallet</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Personal Account</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">01 Apr, 22</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Last Payment</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">-456.34 DOGE</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Balance</span>
-												</td>
-												<td class="text-end">
-													<a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-arrow-right fs-2">
-															<span class="path1"></span>
-															<span class="path2"></span>
-														</i>
-													</a>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="symbol symbol-40px">
-														<span class="symbol-label bg-light-warning">
-															<i class="ki-duotone ki-technology-2 fs-2x text-warning">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</span>
-													</div>
-												</td>
-												<td class="ps-0">
-													<a href="#" class="text-dark fw-bold text-hover-primary mb-1 fs-6">Marvin McKinney</a>
-													<span class="text-muted fw-semibold d-block fs-7">Zuid Area</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">BTC Wallet</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Personal Account</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">26 May, 22</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Last Payment</span>
-												</td>
-												<td>
-													<span class="text-dark fw-bold d-block fs-6">-0.000039 BTC</span>
-													<span class="text-gray-400 fw-semibold d-block fs-7">Balance</span>
-												</td>
-												<td class="text-end">
-													<a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-30px h-30px">
-														<i class="ki-duotone ki-arrow-right fs-2">
-															<span class="path1"></span>
-															<span class="path2"></span>
-														</i>
-													</a>
-												</td>
-											</tr>
-										</tbody>
-										<!--end::Table body-->
-									</table>
-									<!--end::Table-->
+								<!--end::Header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Chart-->
+									<div id="chart_11" class="d-flex justify-content-center"></div>
+									<!--end::Chart-->
 								</div>
-								<!--end::Table container-->
+								<!--end::Card body-->
 							</div>
-							<!--begin::Body-->
-						</div>
-						<!--end::Table widget 7-->
+							<!--end::Chart widget 24-->
 					</div>
 					<!--end::Col-->
 					<!--begin::Col-->
@@ -1144,6 +1297,368 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 <?php
 $this->load->view('dashboard/dashboard_footer_v');
 ?>
+
+<script type="text/javascript">
+new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only_anual"), {
+    display: {
+        viewMode: "calendar",
+		components: {
+            decades: false,
+            year: false,
+            month: true,
+            date: true,
+            hours: false,
+            minutes: false,
+            seconds: false
+        }
+    }
+});
+</script>
+
+<script type="text/javascript">
+new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only_normal"), {
+    display: {
+        viewMode: "calendar",
+		components: {
+			decades: false,
+			year: true,
+			month: true,
+			date: true,
+			hours: false,
+			minutes: false,
+			seconds: false
+		}
+	}
+});
+</script>
+
+<script type="text/javascript">
+new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only_anual_out"), {
+    display: {
+        viewMode: "calendar",
+		components: {
+            decades: false,
+            year: false,
+            month: true,
+            date: true,
+            hours: false,
+            minutes: false,
+            seconds: false
+        }
+    }
+});
+</script>
+
+<script type="text/javascript">
+new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only_normal_out"), {
+    display: {
+        viewMode: "calendar",
+		components: {
+			decades: false,
+			year: true,
+			month: true,
+			date: true,
+			hours: false,
+			minutes: false,
+			seconds: false
+		}
+	}
+});
+</script>
+
+<script type="text/javascript">
+const primary = '#6993FF';
+const success = '#1BC5BD';
+const info = '#8950FC';
+const warning = '#FFA800';
+const danger = '#F64E60';
+
+var KTApexChartsDemo = function () {
+	var _demo11 = function () {
+		const apexChart = "#chart_11";
+		var options = {
+			series: [44, 55, 41, 17, 15],
+			chart: {
+				width: 380,
+				type: 'donut',
+				selection: {
+					enabled: true
+				},
+				toolbar: {
+				show: true,
+				tools: {
+				  download: true,
+				  selection: true,
+				  zoom: true,
+				  zoomin: true,
+				  zoomout: true,
+				  pan: true,
+				  reset: true | '<img src="/static/icons/reset.png" width="20">',
+				  customIcons: []
+				},
+				export: {
+				  csv: {
+					filename: undefined,
+					columnDelimiter: ',',
+					headerCategory: 'category',
+					headerValue: 'value',
+					dateFormatter(timestamp) {
+					  return new Date(timestamp).toDateString()
+					}
+				  },
+				  svg: {
+					filename: 'urusduit',
+				  },
+				  png: {
+					filename: 'urusduit',
+				  }
+				},
+				autoSelected: 'zoom',
+		  }
+			},
+			responsive: [{
+				breakpoint: 480,
+				options: {
+					chart: {
+						width: 200
+					},
+					legend: {
+						position: 'left'
+					}
+				}
+			}],
+			colors: [primary, success, warning, danger, info]
+		};
+
+		var chart = new ApexCharts(document.querySelector(apexChart), options);
+		chart.render();
+	}
+	
+	return {init: function () {
+			_demo11();
+		}
+	};
+}();
+
+jQuery(document).ready(function () {
+	KTApexChartsDemo.init();
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$('.downloadsvg').on('click',function(e){
+		const cardBodyDiv = $(this).closest('.card-body');
+		const chartElement = cardBodyDiv.find('#chart_11');
+		
+		const exportSVGElement = chartElement.find('.exportSVG');
+		
+		exportSVGElement.click();
+		
+	});
+	
+	$('.type-select').on('change',function(e){
+		e.preventDefault();
+		
+		var select_val = $(this).val();
+		
+		if(select_val == 'Recurring Monthly')
+		{
+			$('.recurring-monthly-type').removeClass('d-none');
+			$('.normal-type').removeClass('d-none');
+			$('.normal-type').addClass('d-none');
+			$('.recurring-weekly-type').removeClass('d-none');
+			$('.recurring-weekly-type').addClass('d-none');
+			$('.recurring-anually-type').removeClass('d-none');
+			$('.recurring-anually-type').addClass('d-none');
+			$('.recurring-monthly-type').addClass('animate__animated animate__fadeIn');
+			
+		}
+		else if(select_val == 'One Time')
+		{
+			$('.normal-type').removeClass('d-none');
+			$('.recurring-weekly-type').removeClass('d-none');
+			$('.recurring-weekly-type').addClass('d-none');
+			$('.recurring-monthly-type').removeClass('d-none');
+			$('.recurring-monthly-type').addClass('d-none');
+			$('.recurring-anually-type').removeClass('d-none');
+			$('.recurring-anually-type').addClass('d-none');
+			$('.normal-type').addClass('animate__animated animate__fadeIn');
+		}
+		else if(select_val == 'Recurring Weekly')
+		{
+			$('.recurring-weekly-type').removeClass('d-none');
+			$('.normal-type').removeClass('d-none');
+			$('.normal-type').addClass('d-none');
+			$('.recurring-monthly-type').removeClass('d-none');
+			$('.recurring-monthly-type').addClass('d-none');
+			$('.recurring-anually-type').removeClass('d-none');
+			$('.recurring-anually-type').addClass('d-none');
+			$('.recurring-weekly-type').addClass('animate__animated animate__fadeIn');
+		}
+		else if(select_val == 'Recurring Anually')
+		{
+			$('.recurring-anually-type').removeClass('d-none');
+			$('.normal-type').removeClass('d-none');
+			$('.normal-type').addClass('d-none');
+			$('.recurring-monthly-type').removeClass('d-none');
+			$('.recurring-monthly-type').addClass('d-none');
+			$('.recurring-weekly-type').removeClass('d-none');
+			$('.recurring-weekly-type').addClass('d-none');
+			$('.recurring-anually-type').addClass('animate__animated animate__fadeIn');
+		}
+	});
+	
+	$('.out-type-select').on('change',function(e){
+		e.preventDefault();
+		
+		var select_val = $(this).val();
+		
+		if(select_val == 'Recurring Monthly')
+		{
+			$('.out-recurring-monthly-type').removeClass('d-none');
+			$('.out-normal-type').removeClass('d-none');
+			$('.out-normal-type').addClass('d-none');
+			$('.out-recurring-weekly-type').removeClass('d-none');
+			$('.out-recurring-weekly-type').addClass('d-none');
+			$('.out-recurring-anually-type').removeClass('d-none');
+			$('.out-recurring-anually-type').addClass('d-none');
+			$('.out-recurring-monthly-type').addClass('animate__animated animate__fadeIn');
+			
+		}
+		else if(select_val == 'One Time')
+		{
+			$('.out-normal-type').removeClass('d-none');
+			$('.out-recurring-weekly-type').removeClass('d-none');
+			$('.out-recurring-weekly-type').addClass('d-none');
+			$('.out-recurring-monthly-type').removeClass('d-none');
+			$('.out-recurring-monthly-type').addClass('d-none');
+			$('.out-recurring-anually-type').removeClass('d-none');
+			$('.out-recurring-anually-type').addClass('d-none');
+			$('.out-normal-type').addClass('animate__animated animate__fadeIn');
+		}
+		else if(select_val == 'Recurring Weekly')
+		{
+			$('.out-recurring-weekly-type').removeClass('d-none');
+			$('.out-normal-type').removeClass('d-none');
+			$('.out-normal-type').addClass('d-none');
+			$('.out-recurring-monthly-type').removeClass('d-none');
+			$('.out-recurring-monthly-type').addClass('d-none');
+			$('.out-recurring-anually-type').removeClass('d-none');
+			$('.out-recurring-anually-type').addClass('d-none');
+			$('.out-recurring-weekly-type').addClass('animate__animated animate__fadeIn');
+		}
+		else if(select_val == 'Recurring Anually')
+		{
+			$('.out-recurring-anually-type').removeClass('d-none');
+			$('.out-normal-type').removeClass('d-none');
+			$('.out-normal-type').addClass('d-none');
+			$('.out-recurring-monthly-type').removeClass('d-none');
+			$('.out-recurring-monthly-type').addClass('d-none');
+			$('.out-recurring-weekly-type').removeClass('d-none');
+			$('.out-recurring-weekly-type').addClass('d-none');
+			$('.out-recurring-anually-type').addClass('animate__animated animate__fadeIn');
+		}
+	});
+	
+	$('#js_record_in').submit(function(event){	
+		event.preventDefault();
+		// var values = $(this).serialize();
+		var formData = new FormData($(this)[0]);
+		
+		$.ajax({
+			url: baseUrl + 'account/in_records',
+			method: "POST",
+			data: formData,
+			dataType:'json',
+			async: false,
+			cache: false,
+			contentType: false,
+			enctype: 'multipart/form-data',
+			processData: false,
+			success: function(response){
+				if(response['result'] == 'success')
+				{
+					Swal.fire({
+						text: response['msg'],
+						icon: "success",
+						buttonsStyling: !1,
+						confirmButtonText: "Ok, got it!",
+						customClass: {
+							confirmButton: "btn btn-primary"
+						}
+					}).then((function() {
+						location.href = baseUrl + 'dashboard';
+					}));
+				}
+				else
+				{
+					Swal.fire({
+						// text: "Sorry, looks like there are some errors detected, please try again.",
+						text: response['msg'],
+						icon: "error",
+						buttonsStyling: !1,
+						confirmButtonText: "Ok, got it!",
+						customClass: {
+							confirmButton: "btn btn-primary"
+						}
+					});
+				}
+			}
+		});
+	});
+	
+	$('#js_record_out').submit(function(event){	
+		event.preventDefault();
+		// var values = $(this).serialize();
+		var formData = new FormData($(this)[0]);
+		
+		$.ajax({
+			url: baseUrl + 'account/out_records',
+			method: "POST",
+			data: formData,
+			dataType:'json',
+			async: false,
+			cache: false,
+			contentType: false,
+			enctype: 'multipart/form-data',
+			processData: false,
+			success: function(response){
+				if(response['result'] == 'success')
+				{
+					Swal.fire({
+						text: response['msg'],
+						icon: "success",
+						buttonsStyling: !1,
+						confirmButtonText: "Ok, got it!",
+						customClass: {
+							confirmButton: "btn btn-primary"
+						}
+					}).then((function() {
+						location.href = baseUrl + 'dashboard';
+					}));
+				}
+				else
+				{
+					Swal.fire({
+						// text: "Sorry, looks like there are some errors detected, please try again.",
+						text: response['msg'],
+						icon: "error",
+						buttonsStyling: !1,
+						confirmButtonText: "Ok, got it!",
+						customClass: {
+							confirmButton: "btn btn-primary"
+						}
+					});
+				}
+			}
+		});
+	});
+});
+</script>
+
+
 
 <?php
 $this->load->view('dashboard/dashboard_close_v');

@@ -27,8 +27,11 @@ class Dashboard extends CI_Controller {
 	
 	public function index()
 	{
-		// ad($this->session->userdata());
-		$this->load->view('dashboard/dashboard_v');
+		$data['account'] = $this->account->account_data();
+		
+		//ad($data,true,'dashboard_index.log');
+		// exit();
+		$this->load->view('dashboard/dashboard_v',$data);
 	}
 	
 }

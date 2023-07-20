@@ -70,7 +70,7 @@ var KTSigninGeneral = function() {
 								customClass: {
 									confirmButton: "btn btn-primary"
 								}
-							})
+							});
 							
 						}
 					}

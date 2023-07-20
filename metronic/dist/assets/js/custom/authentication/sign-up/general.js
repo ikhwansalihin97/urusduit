@@ -74,6 +74,12 @@ var KTSignupGeneral = function() {
             }), t.addEventListener("click", (function(s) {
                 s.preventDefault();
 				
+				var button = document.querySelector("#kt_sign_up_submit");
+
+				
+				// Activate indicator
+				button.setAttribute("data-kt-indicator", "on");
+
 				var username = $('.signup-username').val();
 				var email = $('.signup-email').val();
 				var password =	$('.signup-password').val();
@@ -89,6 +95,8 @@ var KTSignupGeneral = function() {
 							success: function(response){
 								if(response['result'] == 'success')
 								{
+									button.removeAttribute("data-kt-indicator");
+									
 									Swal.fire({
 										html: "Thanks for signing up! <br>Please <strong>verify</strong> your email address to complete your signup.",
 										icon: "success",
@@ -103,6 +111,7 @@ var KTSignupGeneral = function() {
 								}
 								else
 								{
+									button.removeAttribute("data-kt-indicator");
 									Swal.fire({
 										// text: "Sorry, looks like there are some errors detected, please try again.",
 										text: response['message'],

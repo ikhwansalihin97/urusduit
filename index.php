@@ -54,6 +54,13 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+		
+	if (php_sapi_name() === 'cli' && empty($_SERVER['REMOTE_ADDR']) && !defined('ENVIRONMENT')) {
+		define('ENVIRONMENT', 'cli');
+	}
+
+	
+
 
 /*
  *---------------------------------------------------------------

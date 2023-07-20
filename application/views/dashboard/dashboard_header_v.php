@@ -29,6 +29,8 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->
+		<!--begin::Page Vendors Styles(used by this page)-->
+		<!--end::Page Vendors Styles-->
 		<!--begin::Vendor Stylesheets(used for this page only)-->
 		<link href="<?php echo base_url();?>metronic/dist/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo base_url();?>metronic/dist/assets/plugins/custom/vis-timeline/vis-timeline.bundle.css" rel="stylesheet" type="text/css" />
@@ -37,6 +39,15 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="<?php echo base_url();?>metronic/dist/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="<?php echo base_url();?>metronic/dist/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
+		<style>
+			.amcharts-amexport-item {
+			 
+			}
+
+			.amcharts-amexport-top .amcharts-amexport-item > .amcharts-amexport-menu {
+			  
+			}
+		</style>
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -158,9 +169,9 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-													<div class="fw-bold d-flex align-items-center fs-5">Max Smith
+													<div class="fw-bold d-flex align-items-center fs-5"><?php echo ucwords($this->session->userdata('username'));?>
 													<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span></div>
-													<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+													<a href="#" class="fw-semibold text-muted text-hover-primary fs-7"><?php echo $this->session->userdata('email');?></a>
 												</div>
 												<!--end::Username-->
 											</div>

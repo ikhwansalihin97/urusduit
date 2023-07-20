@@ -7,30 +7,37 @@
 	 * @param	string
 	 * @return	string
 	 */	
-	if(!function_exists("ad")) {
-		function ad($data, $write = false){
-			//Array Debug. 
-			if($write) {
+	if (!function_exists("ad")) {
+		function ad($data, $write = false, $logName = "array_debug.log")
+		{
+			// Array Debug.
+			if ($write) {
 				ob_start();
 				print_r($data);
 				$output = ob_get_contents();
 				ob_end_clean();
 
-				$myFile = "C:/testFile.txt";
-				$fh = fopen($myFile, 'a') or die("can't open file");
-				
+				$logFile = $logName;
+				if (empty($logName)) {
+					$logFile = 'logging/array_debug.log';
+				} else {
+					$logFile = 'logging/' . $logName;
+				}
+
+				$fh = fopen($logFile, 'a') or die("can't open file");
+
 				$date = date("d-m-Y H:i:s") . "\n";
 				fwrite($fh, $date);
-				fwrite($fh, $output);
+				fwrite($fh, $output . "\n");
 				fclose($fh);
-			}
-			else {
+			} else {
 				echo "<pre>";
 				print_r($data);
 				echo "</pre>";
 			}
 		}
 	}
+
 
 	// ------------------------------------------------------------------------
 
@@ -500,8 +507,60 @@
 		}
 	}
 	
+	function check_by_value_and_column($value = NULL, $column = NULL, $table = NULL)
+	{
+		$CI =& get_instance();
+		
+		if($column != NULL && $value != NULL && $table != NULL)
+		{
+			$num_rows = $CI->db->where($column,$value)->get($table)->num_rows();
+			
+			return $num_rows > 0 ? true : false;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	function today()
 	{
 		return date("d_m_Y_H:i_A");
+	}
+	
+	function getDurationFromEpoch($epochTimestamp) 
+	{
+		// Get the current timestamp in seconds
+		$currentTimestamp = time();
+
+		// Calculate the time difference in seconds
+		$timeDifference = $currentTimestamp - $epochTimestamp;
+
+		// Calculate the duration in minutes, hours, and days
+		$minutes = floor($timeDifference / 60);
+		$hours = floor($timeDifference / 3600);
+		$days = floor($timeDifference / 86400);
+
+		// Construct the duration string
+		$durationString = '';
+		if ($minutes > 0) {
+			$durationString = $minutes . ' minute' . ($minutes > 1 ? 's' : '') . ' ';
+		}
+		if ($hours > 0) {
+			$durationString = $hours . ' hour' . ($hours > 1 ? 's' : '') . ' ';
+		}
+		if ($days > 0) {
+			$durationString = $days . ' day' . ($days > 1 ? 's' : '') . ' ';
+		}
+		
+
+		// If the duration is still empty, it means it's less than a minute ago
+		if (empty($durationString)) {
+			$durationString = 'less than a minute ago';
+		} else {
+			$durationString .= 'ago';
+		}
+
+		return $durationString;
 	}
 ?>

@@ -26,10 +26,15 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 $allowed_domains = array('urusduit.local','urusduit.my');
 $default_domain  = 'urusduit.local';
 
-if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE))
+if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE)) {
+    // Your code logic for local or web hosting
 	$domain = $_SERVER['HTTP_HOST'];
+}
 else
+{
 	$domain = $default_domain;
+}
+
 
 if ( ! empty($_SERVER['HTTPS']))
 	$config['base_url'] = 'https://' . $domain . str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
