@@ -4795,7 +4795,7 @@
 		<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 		<!--end::Vendors Javascript-->
 		<!--begin::Custom Javascript(used for this page only)-->
-		<script src="<?php echo base_url();?>metronic/dist/assets/js/widgets.bundle.js"></script>
+		<script src="<?php echo base_url();?>metronic/dist/assets/js/widgets.bundle.js?v=<?php echo time();?>"></script>
 		<script src="<?php echo base_url();?>metronic/dist/assets/js/custom/widgets.js"></script>
 		<script src="<?php echo base_url();?>metronic/dist/assets/js/custom/apps/chat/chat.js"></script>
 		<script src="<?php echo base_url();?>metronic/dist/assets/js/custom/utilities/modals/upgrade-plan.js"></script>

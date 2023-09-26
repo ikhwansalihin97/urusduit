@@ -23,8 +23,8 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 | a PHP script and you can easily do that on your own.
 |
 */
-$allowed_domains = array('urusduit.local','urusduit.my');
-$default_domain  = 'urusduit.local';
+$allowed_domains = array('fieldpass.local','urusduit.my');
+$default_domain  = 'fieldpass.local';
 
 if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE))
 	$domain = $_SERVER['HTTP_HOST'];

@@ -58,7 +58,7 @@ License: For each use you must have a valid license purchased only from above li
 						</a>
 						<!--end::Logo-->
 						<!--begin::Title-->
-						<h2 class="text-white fw-normal m-0">Financial tools designed for you</h2>
+						<h2 class="text-white fw-normal m-0">All In One League Management System</h2>
 						<!--end::Title-->
 					</div>
 					<!--begin::Aside-->
@@ -78,7 +78,7 @@ License: For each use you must have a valid license purchased only from above li
 									<h1 class="text-dark fw-bolder mb-3">Sign In</h1>
 									<!--end::Title-->
 									<!--begin::Subtitle-->
-									<div class="text-gray-500 fw-semibold fs-6">Financially Smart</div>
+									<div class="text-gray-500 fw-semibold fs-6">Association Login</div>
 									<!--end::Subtitle=-->
 								</div>
 								<!--begin::Heading-->

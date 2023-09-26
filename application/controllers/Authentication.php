@@ -75,7 +75,32 @@ class Authentication extends CI_Controller {
 		redirect('oops');
 	}
 	
-	public function view_template()
+	public function validate($token = NULL)
+	{
+		if($token != NULL)
+		{
+			$token_exist = check_by_value_and_column($token,'token','user');
+			if($token_exist == true)
+			{
+				$update_status = $this->user->activate_user($token); 
+				
+				if($update_status == true)
+				{
+					$this->load->view('auth/welcome_v');
+					return;
+				}
+				else
+				{
+					redirect('oops');
+				}
+			}
+			
+			redirect('oops');
+		}
+		redirect('oops');
+	}
+	
+	/* public function view_template()
 	{
 		$data['username'] = 'Ikhwansalihin';
 		$token = openssl_random_pseudo_bytes(16);
@@ -92,7 +117,7 @@ class Authentication extends CI_Controller {
 		$rs = sendmail($subject,$body,$to,array(),$image);
 		ad($rs);
 		// $this->load->view('email/welcome_t', $data);
-	}
+	} */
 	
 	public function sayonara()
 	{

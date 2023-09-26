@@ -299,7 +299,7 @@
 			$mail->Password   = ADMIN_EMAIL_PASS;            // GMAIL password
 			
 			$mail->From       = ADMIN_SMTP_EMAIL;
-			$mail->FromName   = "Urusduit";
+			$mail->FromName   = "FieldPass";
 			
 			$mail->Subject    = $subject;
 			
@@ -491,6 +491,22 @@
 		if($id != NULL)
 		{
 			$num_rows = $CI->db->where('id',$id)->get($table)->num_rows();
+			
+			return $num_rows > 0 ? true : false;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function check_by_value_and_column($value = NULL, $column = NULL, $table = NULL)
+	{
+		$CI =& get_instance();
+		
+		if($column != NULL && $value != NULL && $table != NULL)
+		{
+			$num_rows = $CI->db->where($column,$value)->get($table)->num_rows();
 			
 			return $num_rows > 0 ? true : false;
 		}

@@ -27,8 +27,9 @@ class Dashboard extends CI_Controller {
 	
 	public function index()
 	{
-		// ad($this->session->userdata());
-		$this->load->view('dashboard/dashboard_v');
+		$data['title'] = 'Association Management Dashboard';
+		
+		$this->load->view('dashboard/dashboard_v',$data);
 	}
 	
 }

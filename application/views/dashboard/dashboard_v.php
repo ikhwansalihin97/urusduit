@@ -105,42 +105,119 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 										<div class="form-floating border border-gray-300 rounded mb-7">
 											<select class="form-select form-select-transparent" id="kt_forms_widget_1_select_1">
 												<option></option>
-												<option value="0" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/bitcoin.svg" selected="selected">Bitcoin/BTC</option>
+												<?php
+												if(isset($account['user_account']) && sizeof($account['user_account']) > 0 )
+												{
+													foreach($account['user_account'] as $row_account)
+													{
+														echo '<option selected="selected" value="' . $row_account['account_token'] . '" data-kt-select2-icon="' .  base_url() . 'metronic/dist/assets/media/icons/duotune/finance/fin008.svg">' . $row_account['account_name'] . '</option>';
+													}
+													
+												}
+												?>
+												<?php
+												/* 
+												<option value="0" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/bitcoin.svg">Bitcoin/BTC</option>
 												<option value="1" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/ethereum.svg">Ethereum/ETH</option>
 												<option value="2" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/filecoin.svg">Filecoin/FLE</option>
 												<option value="3" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/chainlink.svg">Chainlink/CIN</option>
 												<option value="4" data-kt-select2-icon="<?php echo base_url();?>metronic/dist/assets/media/svg/coins/binance.svg">Binance/BCN</option>
+												 */
+												?>
 											</select>
-											<label for="floatingInputValue">Coin Name</label>
+											<label for="floatingInputValue">Account Name</label>
 										</div>
 										<!--end::Input group-->
 										<!--begin::Row-->
-										<div class="row mb-7">
-											<!--begin::Col-->
-											<div class="col-6">
-												<!--begin::Input group-->
-												<div class="form-floating">
-													<input type="email" class="form-control text-gray-800 fw-bold" placeholder="00.0" id="floatingInputValue" value="$230.00" />
-													<label for="floatingInputValue">Amount(USD)</label>
-												</div>
-												<!--end::Input group-->
-											</div>
-											<!--end::Col-->
-											<!--begin::Col-->
-											<div class="col-6">
-												<!--begin::Input group-->
-												<div class="form-floating">
-													<input type="email" class="form-control text-gray-800 fw-bold" placeholder="00.0" id="floatingInputValue" value="$0,00000032" />
-													<label for="floatingInputValue">Amount(BTC)</label>
-												</div>
-												<!--end::Input group-->
-											</div>
-											<!--end::Col-->
+										<!--begin::Input group-->
+										<div class="form-floating rounded mb-7">
+											<select class="form-select form-control " data-control="select2" data-placeholder="Select an option">
+												<option></option>
+												<option value="Salary">Salary</option>
+												<option value="Commission">Commission</option>
+												<option value="Hourly wage">Hourly wage</option>
+												<option value="Bonus">Bonus</option>
+												<option value="Dividends">Dividends</option>
+												<option value="Tips">Tips</option>
+												<option value="Inheritance">Inheritance</option>
+												<option value="Royalties">Royalties</option>
+												<option value="Gifts">Gifts</option>
+											</select>
+											<label for="floatingInputValue">Category</label>
 										</div>
+										<!--end::Input group-->
 										<!--end::Row-->
+										<!--begin::Row-->
+										<!--begin::Input group-->
+										<div class="form-floating rounded mb-7">
+											<select class="form-select form-control " data-control="select2" data-placeholder="Select an option">
+												<option></option>
+												<option value="Recurring">Recurring</option>
+												<option value="One Time">One Time</option>
+											</select>
+											<label for="floatingInputValue">Type</label>
+										</div>
+										<!--end::Input group-->
+										<!--end::Row-->
+										<div class="form-floating rounded mb-7">
+											<div class="input-group" id="kt_td_picker_date_only" data-td-target-input="nearest" data-td-target-toggle="nearest">
+												<input id="kt_td_picker_date_only_input" type="text" class="form-control text-gray-800 fw-bold" data-td-target="#kt_td_picker_date_only"/>
+												<span class="input-group-text" data-td-target="#kt_td_picker_date_only" data-td-toggle="datetimepicker">
+													<i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+												</span>
+											</div>
+										</div>
+										<!--begin::Row-->
+										<!--begin::Input group-->
+										<div class="form-floating rounded mb-7">
+											<select class="form-select form-control " data-control="select2" data-placeholder="Select an option">
+												<option></option>
+												<option value="Weekly">Weekly</option>
+												<option value="Bi-Weekly">Bi-Weekly</option>
+												<option value="Semi Monthly">Semi Monthly</option>
+												<option value="Monthly">Monthly</option>
+												<option value="Bi-Monthly">Bi-Monthly</option>
+												<option value="Quarterly ">Quarterly </option>
+												<option value="Semi-Annual">Semi-Annual</option>
+												<option value="Annually">Annually</option>
+											</select>
+											<label for="floatingInputValue">Frequency</label>
+										</div>
+										<!--end::Input group-->
+										<!--end::Row-->
+										<div class="form-floating rounded mb-7">
+											<!--begin::Default example-->
+											<select class="form-select form-control" data-control="select2" data-placeholder="Select an option">
+												<option></option>
+												<option value="Weekly">Weekly</option>
+												<option value="Bi-Weekly">Bi-Weekly</option>
+												<option value="Semi Monthly">Semi Monthly</option>
+												<option value="Monthly">Monthly</option>
+												<option value="Bi-Monthly">Bi-Monthly</option>
+												<option value="Quarterly ">Quarterly </option>
+												<option value="Semi-Annual">Semi-Annual</option>
+												<option value="Annually">Annually</option>
+											</select>
+											<label for="floatingInputValue">Frequency Date</label>
+											<!--end::Default example-->
+										</div>
+										<!--begin::Row-->
+										<!--begin::Input group-->
+										<div class="form-floating rounded mb-7">
+											<input type="number" class="form-control " placeholder="0" id="floatingInputValue" value="0.00" />
+											<label for="floatingInputValue">Amount</label>
+										</div>
+										<!--end::Input group-->
+										<!--end::Row-->
+										<!--begin::Input group-->
+										<div class="form-floating rounded mb-7">
+											<input type="text" class="form-control " placeholder="Any Remarks" id="remarksInput" />
+											<label for="remarksInput">Comments</label>
+										</div>
+										<!--end::Input group-->
 										<!--begin::Action-->
 										<div class="d-flex align-items-end">
-											<a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_top_up_wallet" class="btn btn-primary fs-3 w-100">Make Payment</a>
+											<a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_top_up_wallet" class="btn btn-primary fs-3 w-100">Record</a>
 										</div>
 										<!--end::Action-->
 									</div>
@@ -203,339 +280,140 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 					<div class="col-xxl-8">
 						<!--begin::Row-->
 						<div class="row g-5 g-xl-10">
-							<!--begin::Col-->
-							<div class="col-md-4">
-								<!--begin::Card widget 11-->
-								<div class="card card-flush h-xl-100" style="background-color: #F6E5CA">
-									<!--begin::Header-->
-									<div class="card-header flex-nowrap pt-5">
-										<!--begin::Title-->
-										<h3 class="card-title align-items-start flex-column">
-											<span class="card-label fw-bold fs-4 text-gray-800">Bitcoin</span>
-											<span class="mt-1 fw-semibold fs-7" style="color:">36,668 USD for 1 BTC</span>
-										</h3>
-										<!--end::Title-->
-										<!--begin::Toolbar-->
-										<div class="card-toolbar">
-											<!--begin::Menu-->
-											<button class="btn btn-icon justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true" style="color:">
-												<i class="ki-duotone ki-dots-square fs-1">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-												</i>
-											</button>
-											<!--begin::Menu 2-->
-											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mb-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Ticket</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Customer</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+							<?php
+							if(isset($account['user_account']) && sizeof($account['user_account']) > 0 )
+							{
+								if(sizeof($account['user_account']) == 1)
+								{
+									$col_size = '12';
+								}
+								else if(sizeof($account['user_account']) == 2)
+								{
+									$col_size = '6';
+								}
+								else if(sizeof($account['user_account']) == 3)
+								{
+									$col_size = '3';
+								}
+								
+								foreach($account['user_account'] as $row_account)
+								{
+							?>
+								<!--begin::Col-->
+								<div class="col-md-<?php echo isset($col_size) && $col_size != '' ? $col_size :'12';?>">
+									<!--begin::Card widget 11-->
+									<div class="card card-flush h-xl-100" style="background-color: #F6E5CA">
+										<!--begin::Header-->
+										<div class="card-header flex-nowrap pt-5">
+											<!--begin::Title-->
+											<h3 class="card-title align-items-start flex-column">
+												<span class="card-label fw-bold fs-4 text-gray-800"><?php echo isset($row_account['account_name']) && $row_account['account_name'] != '' ? $row_account['account_name'] : 'Account Name Missing';?></span>
+												<span class="mt-1 fw-semibold fs-7" style="color:">Since : <?php echo isset($row_account['create_date']) && $row_account['create_date'] != '' ? date("d F Y", $row_account['create_date']) : 'Created Date Missing';?></span>
+											</h3>
+											<!--end::Title-->
+											<!--begin::Toolbar-->
+											<div class="card-toolbar">
+												<!--begin::Menu-->
+												<button class="btn btn-icon justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true" style="color:">
+													<i class="ki-duotone ki-dots-square fs-1">
+														<span class="path1"></span>
+														<span class="path2"></span>
+														<span class="path3"></span>
+														<span class="path4"></span>
+													</i>
+												</button>
+												<!--begin::Menu 2-->
+												<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
 													<!--begin::Menu item-->
-													<a href="#" class="menu-link px-3">
-														<span class="menu-title">New Group</span>
-														<span class="menu-arrow"></span>
-													</a>
+													<div class="menu-item px-3">
+														<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
+													</div>
 													<!--end::Menu item-->
-													<!--begin::Menu sub-->
-													<div class="menu-sub menu-sub-dropdown w-175px py-4">
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Admin Group</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Staff Group</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Member Group</a>
-														</div>
-														<!--end::Menu item-->
-													</div>
-													<!--end::Menu sub-->
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Contact</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mt-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content px-3 py-3">
-														<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
-													</div>
-												</div>
-												<!--end::Menu item-->
-											</div>
-											<!--end::Menu 2-->
-											<!--end::Menu-->
-										</div>
-										<!--end::Toolbar-->
-									</div>
-									<!--end::Header-->
-									<!--begin::Body-->
-									<div class="card-body text-center pt-5">
-										<!--begin::Image-->
-										<img src="<?php echo base_url();?>metronic/dist/assets/media/svg/shapes/bitcoin.svg" class="h-125px mb-5" alt="" />
-										<!--end::Image-->
-										<!--begin::Section-->
-										<div class="text-start">
-											<span class="d-block fw-bold fs-1 text-gray-800">0.44554576 BTC</span>
-											<span class="mt-1 fw-semibold fs-3" style="color:">19,335,45 USD</span>
-										</div>
-										<!--end::Section-->
-									</div>
-									<!--end::Body-->
-								</div>
-								<!--end::Card widget 11-->
-							</div>
-							<!--end::Col-->
-							<!--begin::Col-->
-							<div class="col-md-4">
-								<!--begin::Card widget 11-->
-								<div class="card card-flush h-xl-100" style="background-color: #F3D6EF">
-									<!--begin::Header-->
-									<div class="card-header flex-nowrap pt-5">
-										<!--begin::Title-->
-										<h3 class="card-title align-items-start flex-column">
-											<span class="card-label fw-bold fs-4 text-gray-800">Etherium</span>
-											<span class="mt-1 fw-semibold fs-7" style="color:">325,035 USD for 1 ETH</span>
-										</h3>
-										<!--end::Title-->
-										<!--begin::Toolbar-->
-										<div class="card-toolbar">
-											<!--begin::Menu-->
-											<button class="btn btn-icon justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true" style="color:">
-												<i class="ki-duotone ki-dots-square fs-1">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-												</i>
-											</button>
-											<!--begin::Menu 2-->
-											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mb-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Ticket</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Customer</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+													<!--begin::Menu separator-->
+													<div class="separator mb-3 opacity-75"></div>
+													<!--end::Menu separator-->
 													<!--begin::Menu item-->
-													<a href="#" class="menu-link px-3">
-														<span class="menu-title">New Group</span>
-														<span class="menu-arrow"></span>
-													</a>
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">New Ticket</a>
+													</div>
 													<!--end::Menu item-->
-													<!--begin::Menu sub-->
-													<div class="menu-sub menu-sub-dropdown w-175px py-4">
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Admin Group</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Staff Group</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Member Group</a>
-														</div>
-														<!--end::Menu item-->
-													</div>
-													<!--end::Menu sub-->
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Contact</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mt-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content px-3 py-3">
-														<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
-													</div>
-												</div>
-												<!--end::Menu item-->
-											</div>
-											<!--end::Menu 2-->
-											<!--end::Menu-->
-										</div>
-										<!--end::Toolbar-->
-									</div>
-									<!--end::Header-->
-									<!--begin::Body-->
-									<div class="card-body text-center pt-5">
-										<!--begin::Image-->
-										<img src="<?php echo base_url();?>metronic/dist/assets/media/svg/shapes/ethereum.svg" class="h-125px mb-5" alt="" />
-										<!--end::Image-->
-										<!--begin::Section-->
-										<div class="text-start">
-											<span class="d-block fw-bold fs-1 text-gray-800">29.33460000 ETH</span>
-											<span class="mt-1 fw-semibold fs-3" style="color:">7,336,00 USD</span>
-										</div>
-										<!--end::Section-->
-									</div>
-									<!--end::Body-->
-								</div>
-								<!--end::Card widget 11-->
-							</div>
-							<!--end::Col-->
-							<!--begin::Col-->
-							<div class="col-md-4">
-								<!--begin::Card widget 11-->
-								<div class="card card-flush h-xl-100" style="background-color: #BFDDE3">
-									<!--begin::Header-->
-									<div class="card-header flex-nowrap pt-5">
-										<!--begin::Title-->
-										<h3 class="card-title align-items-start flex-column">
-											<span class="card-label fw-bold fs-4 text-gray-800">Dogecoin</span>
-											<span class="mt-1 fw-semibold fs-7" style="color:">0.12,045 USD for 1 DOGE</span>
-										</h3>
-										<!--end::Title-->
-										<!--begin::Toolbar-->
-										<div class="card-toolbar">
-											<!--begin::Menu-->
-											<button class="btn btn-icon justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true" style="color:">
-												<i class="ki-duotone ki-dots-square fs-1">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-												</i>
-											</button>
-											<!--begin::Menu 2-->
-											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mb-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Ticket</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Customer</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
 													<!--begin::Menu item-->
-													<a href="#" class="menu-link px-3">
-														<span class="menu-title">New Group</span>
-														<span class="menu-arrow"></span>
-													</a>
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">New Customer</a>
+													</div>
 													<!--end::Menu item-->
-													<!--begin::Menu sub-->
-													<div class="menu-sub menu-sub-dropdown w-175px py-4">
+													<!--begin::Menu item-->
+													<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
 														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Admin Group</a>
-														</div>
+														<a href="#" class="menu-link px-3">
+															<span class="menu-title">New Group</span>
+															<span class="menu-arrow"></span>
+														</a>
 														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Staff Group</a>
+														<!--begin::Menu sub-->
+														<div class="menu-sub menu-sub-dropdown w-175px py-4">
+															<!--begin::Menu item-->
+															<div class="menu-item px-3">
+																<a href="#" class="menu-link px-3">Admin Group</a>
+															</div>
+															<!--end::Menu item-->
+															<!--begin::Menu item-->
+															<div class="menu-item px-3">
+																<a href="#" class="menu-link px-3">Staff Group</a>
+															</div>
+															<!--end::Menu item-->
+															<!--begin::Menu item-->
+															<div class="menu-item px-3">
+																<a href="#" class="menu-link px-3">Member Group</a>
+															</div>
+															<!--end::Menu item-->
 														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Member Group</a>
-														</div>
-														<!--end::Menu item-->
+														<!--end::Menu sub-->
 													</div>
-													<!--end::Menu sub-->
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3">New Contact</a>
-												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
-												<div class="separator mt-3 opacity-75"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<div class="menu-content px-3 py-3">
-														<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="#" class="menu-link px-3">New Contact</a>
 													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu separator-->
+													<div class="separator mt-3 opacity-75"></div>
+													<!--end::Menu separator-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<div class="menu-content px-3 py-3">
+															<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
+														</div>
+													</div>
+													<!--end::Menu item-->
 												</div>
-												<!--end::Menu item-->
+												<!--end::Menu 2-->
+												<!--end::Menu-->
 											</div>
-											<!--end::Menu 2-->
-											<!--end::Menu-->
+											<!--end::Toolbar-->
 										</div>
-										<!--end::Toolbar-->
-									</div>
-									<!--end::Header-->
-									<!--begin::Body-->
-									<div class="card-body text-center pt-5">
-										<!--begin::Image-->
-										<img src="<?php echo base_url();?>metronic/dist/assets/media/svg/shapes/dogecoin.svg" class="h-125px mb-5" alt="" />
-										<!--end::Image-->
-										<!--begin::Section-->
-										<div class="text-start">
-											<span class="d-block fw-bold fs-1 text-gray-800">4703.7589 DOGE</span>
-											<span class="mt-1 fw-semibold fs-3" style="color:">503,005,56 USD</span>
+										<!--end::Header-->
+										<!--begin::Body-->
+										<div class="card-body text-center pt-5">
+											<!--begin::Image-->
+											<img src="<?php echo base_url();?>metronic/dist/assets/media/svg/shapes/bitcoin.svg" class="h-125px mb-5" alt="" />
+											<!--end::Image-->
+											<!--begin::Section-->
+											<div class="text-start">
+												<span class="d-block fw-bold fs-1 text-gray-800"><?php echo isset($row_account['amount_total']) && $row_account['amount_total'] != '' ? 'RM ' . number_format($row_account['amount_total'],2) : 'RM 0.00';?></span>
+												<span class="mt-1 fw-semibold fs-3" style="color:">Since : <?php echo isset($row_account['create_date']) && $row_account['create_date'] != '' ? date("d F Y", $row_account['create_date']) : 'Created Date Missing';?></span>
+											</div>
+											<!--end::Section-->
 										</div>
-										<!--end::Section-->
+										<!--end::Body-->
 									</div>
-									<!--end::Body-->
+									<!--end::Card widget 11-->
 								</div>
-								<!--end::Card widget 11-->
-							</div>
-							<!--end::Col-->
+								<!--end::Col-->
+							<?php
+								}
+							}
+							?>
 						</div>
 						<!--end::Row-->
 					</div>
@@ -1144,7 +1022,22 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 <?php
 $this->load->view('dashboard/dashboard_footer_v');
 ?>
-
+<script type="text/javascript">
+new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only"), {
+    display: {
+        viewMode: "calendar",
+        components: {
+            decades: false,
+            year: true,
+            month: true,
+            date: true,
+            hours: false,
+            minutes: false,
+            seconds: false
+        }
+    }
+});
+</script>
 <?php
 $this->load->view('dashboard/dashboard_close_v');
 ?>
