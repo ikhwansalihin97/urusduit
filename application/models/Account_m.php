@@ -489,6 +489,72 @@ class Account_m extends CI_Model {
 		}
 	}
 	
+	function donut_chart_data()
+	{
+		$user_account = $this->db->where('user_id',$this->session->userdata('user_id'))->get('user_account')->result();
+		
+		$pie_data_income = array();
+		$pie_data_expenses = array();
+		
+		if(isset($user_account) && is_array($user_account) && sizeof($user_account) > 0 )
+		{
+			foreach($user_account as $row_account)
+			{
+				$account_data = $this->db->select('category, flow, SUM(amount) as amount')->where('account_token',$row_account->account_token)->where('exact_record_date <=',date('Y-m-d'))->group_by('category, flow')->get('account_data')->result();
+			
+				if(sizeof($account_data) > 0)
+				{
+					foreach($account_data as $row_data)
+					{
+						if($row_data->flow == 'in')
+						{
+							$pie_data_income[] = array(
+							'category'=>$row_data->category,
+							'income'=>$row_data->amount,
+							);
+						}
+						else
+						{
+							$pie_data_expenses[] = array(
+							'category'=>$row_data->category,
+							'expenses'=>$row_data->amount,
+							);
+						}
+						
+					}
+				}
+				
+			}
+			
+		}
+		
+		// $pie_data = array();
+		
+		$data['chart_category'] = '"category"';
+		$data['chart_x'] = '"income"';
+		$data['chart_y'] = '"expenses"';
+		
+		
+		if(sizeof($pie_data_income) > 0)
+		{
+			$data['chart_data_income'] = json_encode($pie_data_income);
+		}
+		
+		if(sizeof($pie_data_expenses) > 0)
+		{
+			$data['chart_data_expenses'] = json_encode($pie_data_expenses);
+		}
+		
+		if(sizeof($pie_data_income) == 0 && sizeof($pie_data_expenses) == 0)
+		{
+			
+			$data['chart_data_expenses'] = '[]';
+			$data['chart_data_income'] = '[]';
+		}
+		
+		return $data;
+	}
+	
 	
 }
 ?>

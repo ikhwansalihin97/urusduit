@@ -839,67 +839,143 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 				<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
 					<!--begin::Col-->
 					<div class="col-xxl-8">
-						<!--begin::Chart widget 26-->
-						<div class="card card-flush overflow-hidden h-xl-100">
+						<!--begin::Chart widget 23-->
+						<div class="card card-flush overflow-hidden h-md-100">
 							<!--begin::Header-->
-							<div class="card-header pt-7 mb-2">
+							<div class="card-header py-5">
 								<!--begin::Title-->
-								<h3 class="card-title text-gray-800 fw-bold">Transaction History</h3>
+								<h3 class="card-title align-items-start flex-column">
+									<span class="card-label fw-bold text-dark">Income and Expenditure Chart</span>
+									<span class="text-gray-400 mt-1 fw-semibold fs-6">Income and Expenditure Monthly Chart</span>
+								</h3>
 								<!--end::Title-->
 								<!--begin::Toolbar-->
 								<div class="card-toolbar">
-									<!--begin::Daterangepicker(defined in src/js/layout/app.js)-->
-									<div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" class="btn btn-sm btn-light d-flex align-items-center px-4">
-										<!--begin::Display range-->
-										<div class="text-gray-600 fw-bold">Loading date range...</div>
-										<!--end::Display range-->
-										<i class="ki-duotone ki-calendar-8 fs-1 ms-2 me-0">
+									<!--begin::Menu-->
+									<button class="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true">
+										<i class="ki-duotone ki-dots-square fs-1">
 											<span class="path1"></span>
 											<span class="path2"></span>
 											<span class="path3"></span>
 											<span class="path4"></span>
-											<span class="path5"></span>
-											<span class="path6"></span>
 										</i>
+									</button>
+									<!--begin::Menu 2-->
+									<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
+										<!--begin::Menu item-->
+										<div class="menu-item px-3">
+											<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu separator-->
+										<div class="separator mb-3 opacity-75"></div>
+										<!--end::Menu separator-->
+										<!--begin::Menu item-->
+										<div class="menu-item px-3">
+											<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="pdf">PDF</a>
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu item-->
+										<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+											<!--begin::Menu item-->
+											<a href="#" class="menu-link px-3">
+												<span class="menu-title">Image</span>
+												<span class="menu-arrow"></span>
+											</a>
+											<!--end::Menu item-->
+											<!--begin::Menu sub-->
+											<div class="menu-sub menu-sub-dropdown w-175px py-4">
+												<!--begin::Menu item-->
+												<div class="menu-item px-3">
+													<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="png">PNG</a>
+												</div>
+												<!--end::Menu item-->
+												<!--begin::Menu item-->
+												<div class="menu-item px-3">
+													<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="jpg">JPG</a>
+												</div>
+												<!--end::Menu item-->
+												<!--begin::Menu item-->
+												<div class="menu-item px-3">
+													<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="svg">SVG</a>
+												</div>
+												<!--end::Menu item-->
+											</div>
+											<!--end::Menu sub-->
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu item-->
+										<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+											<!--begin::Menu item-->
+											<a href="#" class="menu-link px-3">
+												<span class="menu-title">Data</span>
+												<span class="menu-arrow"></span>
+											</a>
+											<!--end::Menu item-->
+											<!--begin::Menu sub-->
+											<div class="menu-sub menu-sub-dropdown w-175px py-4">
+												<!--begin::Menu item-->
+												<div class="menu-item px-3">
+													<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="json">JSON</a>
+												</div>
+												<!--end::Menu item-->
+												<!--begin::Menu item-->
+												<div class="menu-item px-3">
+													<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="csv">CSV</a>
+												</div>
+												<!--end::Menu item-->
+												<!--begin::Menu item-->
+												<div class="menu-item px-3">
+													<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="xlsx">XLSX</a>
+												</div>
+												<!--end::Menu item-->
+												<!--begin::Menu item-->
+												<div class="menu-item px-3">
+													<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="html">HTML</a>
+												</div>
+												<!--end::Menu item-->
+												<!--begin::Menu item-->
+												<div class="menu-item px-3">
+													<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="pdfdata">PDF</a>
+												</div>
+												<!--end::Menu item-->
+											</div>
+											<!--end::Menu sub-->
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu item-->
+										<div class="menu-item px-3">
+											<a href="javascript:void(0)" class="menu-link px-3 download-xy-chart-btn" data-export-type="print">Print</a>
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu separator-->
+										<div class="separator mt-3 opacity-75"></div>
+										<!--end::Menu separator-->
+										<!--begin::Menu item-->
+										<!--
+										<div class="menu-item px-3">
+											<div class="menu-content px-3 py-3">
+												<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
+											</div>
+										</div>
+										-->
+										<!--end::Menu item-->
 									</div>
-									<!--end::Daterangepicker-->
+									<!--end::Menu 2-->
+									<!--end::Menu-->
 								</div>
 								<!--end::Toolbar-->
 							</div>
 							<!--end::Header-->
 							<!--begin::Card body-->
-							<div class="card-body d-flex justify-content-between flex-column pt-0 pb-1 px-0">
-								<!--begin::Info-->
-								<div class="px-9 mb-5">
-									<!--begin::Statistics-->
-									<div class="d-flex align-items-center mb-2">
-										<!--begin::Currency-->
-										<span class="fs-4 fw-semibold text-gray-400 align-self-start me-1">$</span>
-										<!--end::Currency-->
-										<!--begin::Value-->
-										<span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">12,706</span>
-										<!--end::Value-->
-										<!--begin::Label-->
-										<span class="badge badge-success fs-base">
-										<i class="ki-duotone ki-arrow-up fs-5 text-white ms-n1">
-											<span class="path1"></span>
-											<span class="path2"></span>
-										</i>4.5%</span>
-										<!--end::Label-->
-									</div>
-									<!--end::Statistics-->
-									<!--begin::Description-->
-									<span class="fs-6 fw-semibold text-gray-400">Transactions in April</span>
-									<!--end::Description-->
-								</div>
-								<!--end::Info-->
+							<div class="card-body pt-4">
 								<!--begin::Chart-->
-								<div id="kt_charts_widget_26" class="min-h-auto ps-4 pe-6" data-kt-chart-info="Transactions" style="height: 300px"></div>
+								<div id="xy_chart" class="h-400px w-100"></div>
 								<!--end::Chart-->
 							</div>
 							<!--end::Card body-->
 						</div>
-						<!--end::Chart widget 26-->
+						<!--end::Chart widget 23-->
 					</div>
 					<!--end::Col-->
 					<!--begin::Col-->
@@ -944,15 +1020,15 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 				<!--begin::Row-->
 				<div class="row g-5 g-xl-10">
 					<!--begin::Col-->
-					<div class="col-xxl-8">
+					<div class="col-xxl-6">
 						<!--begin::Chart widget 24-->
 							<div class="card card-flush overflow-hidden h-xl-100">
 								<!--begin::Header-->
 								<div class="card-header py-5">
 									<!--begin::Title-->
 									<h3 class="card-title align-items-start flex-column">
-										<span class="card-label fw-bold text-dark">Human Resources</span>
-										<span class="text-gray-400 mt-1 fw-semibold fs-6">Reports by states and ganders</span>
+										<span class="card-label fw-bold text-dark">Income Pie Chart</span>
+										<span class="text-gray-400 mt-1 fw-semibold fs-6">Income transaction chart by category</span>
 									</h3>
 									<!--end::Title-->
 									<!--begin::Toolbar-->
@@ -978,19 +1054,14 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 											<!--end::Menu separator-->
 											<!--begin::Menu item-->
 											<div class="menu-item px-3">
-												<a href="javascript:void(0)" class="menu-link px-3 downloadsvg">Download SVG</a>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-											<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3">New Customer</a>
+												<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" data-export-type="pdf">PDF</a>
 											</div>
 											<!--end::Menu item-->
 											<!--begin::Menu item-->
 											<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
 												<!--begin::Menu item-->
 												<a href="#" class="menu-link px-3">
-													<span class="menu-title">New Group</span>
+													<span class="menu-title">Image</span>
 													<span class="menu-arrow"></span>
 												</a>
 												<!--end::Menu item-->
@@ -998,17 +1069,56 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 												<div class="menu-sub menu-sub-dropdown w-175px py-4">
 													<!--begin::Menu item-->
 													<div class="menu-item px-3">
-														<a href="#" class="menu-link px-3">Admin Group</a>
+														<a href="javascript:void(0)" class="menu-link px-3 download-income-income-donut-chart-btn" data-export-type="png">PNG</a>
 													</div>
 													<!--end::Menu item-->
 													<!--begin::Menu item-->
 													<div class="menu-item px-3">
-														<a href="#" class="menu-link px-3">Staff Group</a>
+														<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" data-export-type="jpg">JPG</a>
 													</div>
 													<!--end::Menu item-->
 													<!--begin::Menu item-->
 													<div class="menu-item px-3">
-														<a href="#" class="menu-link px-3">Member Group</a>
+														<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" data-export-type="svg">SVG</a>
+													</div>
+													<!--end::Menu item-->
+												</div>
+												<!--end::Menu sub-->
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+												<!--begin::Menu item-->
+												<a href="#" class="menu-link px-3">
+													<span class="menu-title">Data</span>
+													<span class="menu-arrow"></span>
+												</a>
+												<!--end::Menu item-->
+												<!--begin::Menu sub-->
+												<div class="menu-sub menu-sub-dropdown w-175px py-4">
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" data-export-type="json">JSON</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" data-export-type="csv">CSV</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" data-export-type="xlsx">XLSX</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" data-export-type="html">HTML</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" data-export-type="pdfdata">PDF</a>
 													</div>
 													<!--end::Menu item-->
 												</div>
@@ -1017,18 +1127,20 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 											<!--end::Menu item-->
 											<!--begin::Menu item-->
 											<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3">New Contact</a>
+												<a href="javascript:void(0)" class="menu-link px-3 download-income-donut-chart-btn" chart-id="" data-export-type="print">Print</a>
 											</div>
 											<!--end::Menu item-->
 											<!--begin::Menu separator-->
 											<div class="separator mt-3 opacity-75"></div>
 											<!--end::Menu separator-->
 											<!--begin::Menu item-->
-											<div class="menu-item px-3">
+											
+											<!--<div class="menu-item px-3">
 												<div class="menu-content px-3 py-3">
 													<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
 												</div>
-											</div>
+											</div>-->
+											
 											<!--end::Menu item-->
 										</div>
 										<!--end::Menu 2-->
@@ -1040,7 +1152,7 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 								<!--begin::Card body-->
 								<div class="card-body pt-0">
 									<!--begin::Chart-->
-									<div id="chart_11" class="d-flex justify-content-center"></div>
+									<div id="pie_chart_income" class="d-flex justify-content-center" style="width: 100%;max-height: 300px;height: 100vh;"></div>
 									<!--end::Chart-->
 								</div>
 								<!--end::Card body-->
@@ -1049,211 +1161,145 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 					</div>
 					<!--end::Col-->
 					<!--begin::Col-->
-					<div class="col-xxl-4">
-						<!--begin::List widget 22-->
-						<div class="card card-flush h-xl-100">
-							<!--begin::Header-->
-							<div class="card-header pt-5">
-								<!--begin::Title-->
-								<h3 class="card-title align-items-start flex-column">
-									<span class="card-label fw-bold text-gray-800">Mining Status</span>
-									<span class="text-gray-400 mt-1 fw-semibold fs-6">8k social visitors</span>
-								</h3>
-								<!--end::Title-->
-								<!--begin::Toolbar-->
-								<div class="card-toolbar">
-									<a href="#" class="btn btn-sm btn-light">All Courses</a>
-								</div>
-								<!--end::Toolbar-->
-							</div>
-							<!--end::Header-->
-							<!--begin::Body-->
-							<div class="card-body">
-								<!--begin::Item-->
-								<div class="d-flex flex-stack">
-									<!--begin::Section-->
-									<div class="d-flex align-items-center me-5">
-										<!--begin::Symbol-->
-										<div class="symbol symbol-40px me-3">
-											<span class="symbol-label bg-light-info">
-												<i class="ki-duotone ki-abstract-24 fs-2x text-info">
-													<span class="path1"></span>
-													<span class="path2"></span>
-												</i>
-											</span>
-										</div>
-										<!--end::Symbol-->
-										<!--begin::Content-->
-										<div class="me-5">
-											<!--begin::Title-->
-											<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">GPUs mining</a>
-											<!--end::Title-->
-											<!--begin::Desc-->
-											<span class="fw-semibold fs-7 d-block text-start text-success ps-0">Running</span>
-											<!--end::Desc-->
-										</div>
-										<!--end::Content-->
-									</div>
-									<!--end::Section-->
-									<!--begin::Wrapper-->
-									<div class="d-flex align-items-center">
-										<!--begin::Info-->
-										<div class="d-flex flex-center">
-											<!--begin::Action-->
-											<div class="form-check form-switch form-check-custom form-check-solid">
-												<input class="form-check-input h-20px w-30px" type="checkbox" value="" id="flexSwitchChecked" checked="checked" />
+					<!--begin::Col-->
+					<div class="col-xxl-6">
+						<!--begin::Chart widget 24-->
+							<div class="card card-flush overflow-hidden h-xl-100">
+								<!--begin::Header-->
+								<div class="card-header py-5">
+									<!--begin::Title-->
+									<h3 class="card-title align-items-start flex-column">
+										<span class="card-label fw-bold text-dark">Expenses Pie Chart</span>
+										<span class="text-gray-400 mt-1 fw-semibold fs-6">Expenses transaction chart by category</span>
+									</h3>
+									<!--end::Title-->
+									<!--begin::Toolbar-->
+									<div class="card-toolbar">
+										<!--begin::Menu-->
+										<button class="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true">
+											<i class="ki-duotone ki-dots-square fs-1">
+												<span class="path1"></span>
+												<span class="path2"></span>
+												<span class="path3"></span>
+												<span class="path4"></span>
+											</i>
+										</button>
+										<!--begin::Menu 2-->
+										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Quick Actions</div>
 											</div>
-											<!--end::Action-->
-										</div>
-										<!--end::Info-->
-									</div>
-									<!--end::Wrapper-->
-								</div>
-								<!--end::Item-->
-								<!--begin::Separator-->
-								<div class="separator separator-dashed my-4"></div>
-								<!--end::Separator-->
-								<!--begin::Item-->
-								<div class="d-flex flex-stack">
-									<!--begin::Section-->
-									<div class="d-flex align-items-center me-5">
-										<!--begin::Symbol-->
-										<div class="symbol symbol-40px me-3">
-											<span class="symbol-label bg-light-success">
-												<i class="ki-duotone ki-flask fs-2x text-success">
-													<span class="path1"></span>
-													<span class="path2"></span>
-												</i>
-											</span>
-										</div>
-										<!--end::Symbol-->
-										<!--begin::Content-->
-										<div class="me-5">
-											<!--begin::Title-->
-											<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">GPUs mining</a>
-											<!--end::Title-->
-											<!--begin::Desc-->
-											<span class="fw-semibold fs-7 d-block text-start text-success ps-0">Running</span>
-											<!--end::Desc-->
-										</div>
-										<!--end::Content-->
-									</div>
-									<!--end::Section-->
-									<!--begin::Wrapper-->
-									<div class="d-flex align-items-center">
-										<!--begin::Info-->
-										<div class="d-flex flex-center">
-											<!--begin::Action-->
-											<div class="form-check form-switch form-check-custom form-check-solid">
-												<input class="form-check-input h-20px w-30px" type="checkbox" value="" id="flexSwitchChecked" checked="checked" />
+											<!--end::Menu item-->
+											<!--begin::Menu separator-->
+											<div class="separator mb-3 opacity-75"></div>
+											<!--end::Menu separator-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="pdf">PDF</a>
 											</div>
-											<!--end::Action-->
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+												<!--begin::Menu item-->
+												<a href="#" class="menu-link px-3">
+													<span class="menu-title">Image</span>
+													<span class="menu-arrow"></span>
+												</a>
+												<!--end::Menu item-->
+												<!--begin::Menu sub-->
+												<div class="menu-sub menu-sub-dropdown w-175px py-4">
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="png">PNG</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="jpg">JPG</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="svg">SVG</a>
+													</div>
+													<!--end::Menu item-->
+												</div>
+												<!--end::Menu sub-->
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+												<!--begin::Menu item-->
+												<a href="#" class="menu-link px-3">
+													<span class="menu-title">Data</span>
+													<span class="menu-arrow"></span>
+												</a>
+												<!--end::Menu item-->
+												<!--begin::Menu sub-->
+												<div class="menu-sub menu-sub-dropdown w-175px py-4">
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="json">JSON</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="csv">CSV</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="xlsx">XLSX</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="html">HTML</a>
+													</div>
+													<!--end::Menu item-->
+													<!--begin::Menu item-->
+													<div class="menu-item px-3">
+														<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" data-export-type="pdfdata">PDF</a>
+													</div>
+													<!--end::Menu item-->
+												</div>
+												<!--end::Menu sub-->
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item px-3">
+												<a href="javascript:void(0)" class="menu-link px-3 download-expenses-donut-chart-btn" chart-id="" data-export-type="print">Print</a>
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu separator-->
+											<div class="separator mt-3 opacity-75"></div>
+											<!--end::Menu separator-->
+											<!--begin::Menu item-->
+											
+											<!--<div class="menu-item px-3">
+												<div class="menu-content px-3 py-3">
+													<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
+												</div>
+											</div>-->
+											
+											<!--end::Menu item-->
 										</div>
-										<!--end::Info-->
+										<!--end::Menu 2-->
+										<!--end::Menu-->
 									</div>
-									<!--end::Wrapper-->
+									<!--end::Toolbar-->
 								</div>
-								<!--end::Item-->
-								<!--begin::Separator-->
-								<div class="separator separator-dashed my-4"></div>
-								<!--end::Separator-->
-								<!--begin::Item-->
-								<div class="d-flex flex-stack">
-									<!--begin::Section-->
-									<div class="d-flex align-items-center me-5">
-										<!--begin::Symbol-->
-										<div class="symbol symbol-40px me-3">
-											<span class="symbol-label bg-light-danger">
-												<i class="ki-duotone ki-abstract-33 fs-2x text-danger">
-													<span class="path1"></span>
-													<span class="path2"></span>
-												</i>
-											</span>
-										</div>
-										<!--end::Symbol-->
-										<!--begin::Content-->
-										<div class="me-5">
-											<!--begin::Title-->
-											<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Est. daily USD</a>
-											<!--end::Title-->
-											<!--begin::Desc-->
-											<span class="fw-semibold fs-7 d-block text-start text-gray-400 ps-0">$48.02</span>
-											<!--end::Desc-->
-										</div>
-										<!--end::Content-->
-									</div>
-									<!--end::Section-->
-									<!--begin::Wrapper-->
-									<div class="d-flex align-items-center">
-										<!--begin::Info-->
-										<div class="d-flex flex-center">
-											<!--begin::Action-->
-											<a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-25px h-25px">
-												<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-											</a>
-											<!--end::Action-->
-										</div>
-										<!--end::Info-->
-									</div>
-									<!--end::Wrapper-->
+								<!--end::Header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Chart-->
+									<div id="pie_chart_expenses" class="d-flex justify-content-center" style="width: 100%;max-height: 300px;height: 100vh;"></div>
+									<!--end::Chart-->
 								</div>
-								<!--end::Item-->
-								<!--begin::Separator-->
-								<div class="separator separator-dashed my-4"></div>
-								<!--end::Separator-->
-								<!--begin::Item-->
-								<div class="d-flex flex-stack">
-									<!--begin::Section-->
-									<div class="d-flex align-items-center me-5">
-										<!--begin::Symbol-->
-										<div class="symbol symbol-40px me-3">
-											<span class="symbol-label bg-light-primary">
-												<i class="ki-duotone ki-abstract-47 fs-2x text-primary">
-													<span class="path1"></span>
-													<span class="path2"></span>
-												</i>
-											</span>
-										</div>
-										<!--end::Symbol-->
-										<!--begin::Content-->
-										<div class="me-5">
-											<!--begin::Title-->
-											<a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Team Members</a>
-											<!--end::Title-->
-											<!--begin::Desc-->
-											<span class="fw-semibold fs-7 d-block text-start text-gray-400 ps-0">6</span>
-											<!--end::Desc-->
-										</div>
-										<!--end::Content-->
-									</div>
-									<!--end::Section-->
-									<!--begin::Wrapper-->
-									<div class="d-flex align-items-center">
-										<!--begin::Info-->
-										<div class="d-flex flex-center">
-											<!--begin::Action-->
-											<a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-25px h-25px">
-												<i class="ki-duotone ki-black-right fs-2 text-gray-500"></i>
-											</a>
-											<!--end::Action-->
-										</div>
-										<!--end::Info-->
-									</div>
-									<!--end::Wrapper-->
-								</div>
-								<!--end::Item-->
+								<!--end::Card body-->
 							</div>
-							<!--end::Body-->
-							<!--begin::Footer-->
-							<div class="card-footer mx-auto pt-0">
-								<!--begin::Actions-->
-								<a href="#" class="btn btn-primary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">Add PC</a>
-								<a href="#" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_users_search">Buy GPU</a>
-								<!--end::Actions-->
-							</div>
-							<!--end::Footer-->
-						</div>
-						<!--end::List widget 22-->
+							<!--end::Chart widget 24-->
 					</div>
 					<!--end::Col-->
 				</div>
@@ -1270,8 +1316,8 @@ $this->load->view('dashboard/dashboard_sidebar_v');
 		<div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
 			<!--begin::Copyright-->
 			<div class="text-dark order-2 order-md-1">
-				<span class="text-muted fw-semibold me-1">2023&copy;</span>
-				<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
+				<span class="text-muted fw-semibold me-1"><?php echo date("Y");?>&copy;</span>
+				<a href="https://ikhwansalihin.com/" target="_blank" class="text-gray-800 text-hover-primary">Ikhwan Salihin</a>
 			</div>
 			<!--end::Copyright-->
 			<!--begin::Menu-->
@@ -1366,96 +1412,293 @@ new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_date_only_
 });
 </script>
 
+<script src="<?php echo base_url();?>metronic/amcharts4/core.js"></script>
+<script src="<?php echo base_url();?>metronic/amcharts4/charts.js"></script>
+<script src="<?php echo base_url();?>metronic/amcharts4/themes/animated.js"></script>
+<script src="<?php echo base_url();?>metronic/amcharts4/themes/kelly.js"></script>
+<script src="<?php echo base_url();?>metronic/amcharts4/plugins/sliceGrouper.js"></script>
+
 <script type="text/javascript">
-const primary = '#6993FF';
-const success = '#1BC5BD';
-const info = '#8950FC';
-const warning = '#FFA800';
-const danger = '#F64E60';
+// am4core.useTheme(am4themes_animated);
 
-var KTApexChartsDemo = function () {
-	var _demo11 = function () {
-		const apexChart = "#chart_11";
-		var options = {
-			series: [44, 55, 41, 17, 15],
-			chart: {
-				width: 380,
-				type: 'donut',
-				selection: {
-					enabled: true
-				},
-				toolbar: {
-				show: true,
-				tools: {
-				  download: true,
-				  selection: true,
-				  zoom: true,
-				  zoomin: true,
-				  zoomout: true,
-				  pan: true,
-				  reset: true | '<img src="/static/icons/reset.png" width="20">',
-				  customIcons: []
-				},
-				export: {
-				  csv: {
-					filename: undefined,
-					columnDelimiter: ',',
-					headerCategory: 'category',
-					headerValue: 'value',
-					dateFormatter(timestamp) {
-					  return new Date(timestamp).toDateString()
-					}
-				  },
-				  svg: {
-					filename: 'urusduit',
-				  },
-				  png: {
-					filename: 'urusduit',
-				  }
-				},
-				autoSelected: 'zoom',
-		  }
-			},
-			responsive: [{
-				breakpoint: 480,
-				options: {
-					chart: {
-						width: 200
-					},
-					legend: {
-						position: 'left'
-					}
-				}
-			}],
-			colors: [primary, success, warning, danger, info]
-		};
+// var chart = am4core.create("chart_11", am4charts.PieChart);
 
-		var chart = new ApexCharts(document.querySelector(apexChart), options);
-		chart.render();
-	}
-	
-	return {init: function () {
-			_demo11();
-		}
-	};
-}();
 
-jQuery(document).ready(function () {
-	KTApexChartsDemo.init();
-});
+/* chart.data = [{
+    "country": "Lithuania",
+    "value": 401
+}, {
+    "country": "Estonia",
+    "value": 300
+}, {
+    "country": "Ireland",
+    "value": 200
+}, {
+    "country": "Germany",
+    "value": 165
+}, {
+    "country": "Australia",
+    "value": 139
+}, {
+    "country": "Austria",
+    "value": 128
+}];
+
+chart.innerRadius = am4core.percent(50);
+
+var series = chart.series.push(new am4charts.PieSeries());
+series.dataFields.value = "value";
+series.dataFields.category = "country";
+
+series.slices.template.cornerRadius = 10;
+series.slices.template.innerCornerRadius = 7;
+series.alignLabels = false;
+series.labels.template.padding(0,0,0,0);
+
+series.labels.template.bent = true;
+series.labels.template.radius = 4;
+
+series.slices.template.states.getKey("hover").properties.scale = 1.1;
+series.labels.template.states.create("hover").properties.fill = am4core.color("#fff");
+
+series.slices.template.events.on("over", function (event) {
+    event.target.dataItem.label.isHover = true;
+})
+
+series.slices.template.events.on("out", function (event) {
+    event.target.dataItem.label.isHover = false;
+})
+
+series.ticks.template.disabled = true;
+
+// this creates initial animation
+series.hiddenState.properties.opacity = 1;
+series.hiddenState.properties.endAngle = -90;
+series.hiddenState.properties.startAngle = -90; */
+
+// Create chart instance
+var donutChart = am4core.create("pie_chart_income", am4charts.PieChart);
+
+// Let's cut a hole in our Pie chart the size of 40% the radius
+donutChart.innerRadius = am4core.percent(40);
+
+// Add data
+donutChart.data = <?php echo $donut_chart['chart_data_income'];?>;
+
+// Add and configure Series
+var pieSeries = donutChart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = <?php echo $donut_chart['chart_x'];?>;
+pieSeries.dataFields.category = <?php echo $donut_chart['chart_category'];?>;
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeWidth = 2;
+pieSeries.slices.template.strokeOpacity = 1;
+
+pieSeries.slices.template.tooltipText = "{category}: RM {value.value}";
+
+pieSeries.colors.list = [
+  am4core.color("#00623F"), // Darker shade of green
+  am4core.color("#007D54"),
+  am4core.color("#009668"),
+  am4core.color("#00B27D"),
+  am4core.color("#00CC92"),
+  am4core.color("#2AD4AB"), // Slightly lighter than the previous list
+];
+
+var grouper = pieSeries.plugins.push(new am4plugins_sliceGrouper.SliceGrouper());
+grouper.clickBehavior = "break";
+grouper.threshold = 2;
+
+// Disable sliding out of slices
+// pieSeries.slices.template.states.getKey("hover").properties.shiftRadius = 0;
+// pieSeries.slices.template.states.getKey("hover").properties.scale = 0.9;
+
+ // Apply the desired theme for the inner series
+
+
+donutChart.legend = new am4charts.Legend();
+
+var donutChartExpenses = am4core.create("pie_chart_expenses", am4charts.PieChart);
+
+// Let's cut a hole in our Pie chart the size of 40% the radius
+donutChartExpenses.innerRadius = am4core.percent(40);
+
+// Add data
+donutChartExpenses.data = <?php echo $donut_chart['chart_data_expenses'];?>;
+
+// Add second series
+var pieSeries2 = donutChartExpenses.series.push(new am4charts.PieSeries());
+pieSeries2.dataFields.value = <?php echo $donut_chart['chart_y'];?>;
+pieSeries2.dataFields.category = <?php echo $donut_chart['chart_category'];?>;
+pieSeries2.slices.template.stroke = am4core.color("#fff");
+pieSeries2.slices.template.strokeWidth = 2;
+pieSeries2.slices.template.strokeOpacity = 1;
+pieSeries2.slices.template.states.getKey("hover").properties.shiftRadius = 0;
+pieSeries2.slices.template.states.getKey("hover").properties.scale = 1.1;
+pieSeries2.slices.template.tooltipText = "{category}: RM {value.value}";
+
+
+pieSeries2.colors.list = [
+  am4core.color("#B30000"), // Dark red
+  am4core.color("#CC0000"),
+  am4core.color("#E60000"),
+  am4core.color("#FF0000"),
+  am4core.color("#FF4D4D"),
+  am4core.color("#FF9999"), // Light red
+];
+
+var grouper2 = pieSeries2.plugins.push(new am4plugins_sliceGrouper.SliceGrouper());
+grouper2.clickBehavior = "break";
+grouper2.threshold = 2;
+
+// pieSeries2.colors.list = [am4core.color("#FF8F77"), am4core.color("#77FF8F")]; // Customize the colors for the inner series slices
+donutChartExpenses.legend = new am4charts.Legend();
+
+</script>
+
+<script type="text/javascript">
+am4core.useTheme(am4themes_animated);
+
+var xy_chart = am4core.create("xy_chart", am4charts.XYChart);
+
+
+var data = [];
+
+xy_chart.data = [{
+    "month": "2014",
+    "income": 23.5,
+    "expenses": 21.1
+}, {
+    "month": "2015",
+    "income": 26.2,
+    "expenses": 30.5
+}, {
+    "month": "2016",
+    "income": 30.1,
+    "expenses": 34.9
+}, {
+    "month": "2017",
+    "income": 20.5,
+    "expenses": 23.1
+}, {
+    "month": "2018",
+    "income": 30.6,
+    "expenses": 28.2
+}, {
+    "month": "2019",
+    "income": 34.1,
+    "expenses": 31.9
+    // "stroke": "3,3",
+    // "opacity": 0.5
+}];
+
+var categoryAxis = xy_chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.renderer.ticks.template.disabled = true;
+categoryAxis.renderer.line.opacity = 0;
+categoryAxis.renderer.grid.template.disabled = true;
+categoryAxis.renderer.minGridDistance = 40;
+categoryAxis.dataFields.category = "month";
+categoryAxis.title.text = "Income & Expenditure";
+
+var valueAxis = xy_chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.line.opacity = 0;
+valueAxis.renderer.ticks.template.disabled = true;
+valueAxis.min = 0;
+valueAxis.max = 50;
+valueAxis.title.text = "Amount (RM)";
+
+
+var columnSeries = xy_chart.series.push(new am4charts.ColumnSeries());
+columnSeries.dataFields.categoryX = "month";
+columnSeries.name = "Income"
+columnSeries.dataFields.valueY = "income";
+columnSeries.tooltipText = "income: RM {valueY.value}";
+columnSeries.sequencedInterpolation = true;
+columnSeries.defaultState.transitionDuration = 1500;
+columnSeries.fill = am4core.color("#009ef7");
+
+var columnTemplate = columnSeries.columns.template;
+columnTemplate.column.cornerRadiusTopLeft = 10;
+columnTemplate.column.cornerRadiusTopRight = 10;
+columnTemplate.strokeWidth = 1;
+columnTemplate.strokeOpacity = 1;
+columnTemplate.stroke = columnSeries.fill;
+
+// var desaturateFilter = new am4core.DesaturateFilter();
+// desaturateFilter.saturation = 0.5;
+// columnTemplate.filters.push(desaturateFilter);
+
+// first way - get properties from data. but can only be done with columns, as they are separate objects.    
+columnTemplate.propertyFields.strokeDasharray = "stroke";
+columnTemplate.propertyFields.fillOpacity = "opacity";
+
+// add some cool saturation effect on hover
+var desaturateFilterHover = new am4core.DesaturateFilter();
+desaturateFilterHover.saturation = 1;
+
+var hoverState = columnTemplate.states.create("hover");
+hoverState.transitionDuration = 2000;
+hoverState.filters.push(desaturateFilterHover);
+
+var lineSeries = xy_chart.series.push(new am4charts.LineSeries());
+lineSeries.dataFields.categoryX = "month";
+lineSeries.name = "Expenses"
+lineSeries.dataFields.valueY = "expenses";
+lineSeries.tooltipText = "expenses: RM {valueY.value}";
+lineSeries.sequencedInterpolation = true;
+lineSeries.defaultState.transitionDuration = 1500;
+lineSeries.stroke = am4core.color("#f1416c");
+lineSeries.fill = lineSeries.stroke;
+lineSeries.strokeWidth = 2;
+
+// second way - add axis range.
+
+// var lineSeriesRange = categoryAxis.createSeriesRange(lineSeries);
+// lineSeriesRange.category = "2018";
+// lineSeriesRange.endCategory = "2019";
+// lineSeriesRange.contents.strokeDasharray = "3,3";
+// lineSeriesRange.locations.category = 0.5;
+
+var bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
+bullet.fill = am4core.color("#F4F4F4");
+bullet.circle.radius = 5;
+bullet.circle.strokeWidth = 3;
+bullet.circle.stroke = am4core.color("#f1416c");
+
+
+xy_chart.cursor = new am4charts.XYCursor();
+xy_chart.cursor.behavior = "none";
+xy_chart.cursor.lineX.opacity = 0;
+xy_chart.cursor.lineY.opacity = 0;
+
+xy_chart.legend = new am4charts.Legend();
+
 </script>
 
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$('.downloadsvg').on('click',function(e){
-		const cardBodyDiv = $(this).closest('.card-body');
-		const chartElement = cardBodyDiv.find('#chart_11');
+	$('.download-income-donut-chart-btn').on('click',function(e){
+		var exportType = $(this).attr('data-export-type');
+		donutChart.exporting.filePrefix = "UrusDuit" + new Date().toISOString().replace(/[:.-]/g, "_");
+
+		donutChart.exporting.export(exportType);
+	});
+	
+	$('.download-expenses-donut-chart-btn').on('click',function(e){
+		var exportType = $(this).attr('data-export-type');
+		donutChartExpenses.exporting.filePrefix = "UrusDuit" + new Date().toISOString().replace(/[:.-]/g, "_");
+
+		donutChartExpenses.exporting.export(exportType);
+	});
+	
+	$('.download-xy-chart-btn').on('click',function(e){
 		
-		const exportSVGElement = chartElement.find('.exportSVG');
-		
-		exportSVGElement.click();
-		
+		var exportType = $(this).attr('data-export-type');
+		xy_chart.exporting.filePrefix = "UrusDuit" + new Date().toISOString().replace(/[:.-]/g, "_");
+
+		xy_chart.exporting.export(exportType);
 	});
 	
 	$('.type-select').on('change',function(e){

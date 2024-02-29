@@ -28,8 +28,10 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		$data['account'] = $this->account->account_data();
-		
+		$data['donut_chart'] = $this->account->donut_chart_data();
 		//ad($data,true,'dashboard_index.log');
+		
+		// ad($data);
 		// exit();
 		$this->load->view('dashboard/dashboard_v',$data);
 	}

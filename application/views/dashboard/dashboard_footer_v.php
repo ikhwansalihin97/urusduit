@@ -4791,6 +4791,7 @@
 		<!--begin::Vendors Javascript(used for this page only)-->
 		<script src="<?php echo base_url();?>metronic/dist/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 		<script src="<?php echo base_url();?>metronic/dist/assets/plugins/custom/vis-timeline/vis-timeline.bundle.js"></script>
+		<!--
 		<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
@@ -4802,6 +4803,8 @@
 		<script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+		-->
+		
 		<!--end::Vendors Javascript-->
 		<!--begin::Custom Javascript(used for this page only)-->
 		<script src="<?php echo base_url();?>metronic/dist/assets/js/widgets.bundle.js?v=<?php echo time();?>"></script>
